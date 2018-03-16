@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		425DA86F205701F400ABA122 /* Attendee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425DA86E205701F400ABA122 /* Attendee.swift */; };
+		425DA8712057021800ABA122 /* EventTimingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425DA8702057021800ABA122 /* EventTimingView.swift */; };
+		425DA8732057022C00ABA122 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425DA8722057022C00ABA122 /* EventTableViewCell.swift */; };
+		42680C9E205554D700FD0D7C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42680C9D205554D700FD0D7C /* Constants.swift */; };
+		42680CA02055599000FD0D7C /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42680C9F2055599000FD0D7C /* UIColor+Hex.swift */; };
+		426D39422059759C007CAC55 /* EventDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426D39412059759C007CAC55 /* EventDetailsView.swift */; };
 		4280378120544475008E53A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280378020544475008E53A7 /* AppDelegate.swift */; };
 		4280378320544475008E53A7 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280378220544475008E53A7 /* MasterViewController.swift */; };
 		4280378520544475008E53A7 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280378420544475008E53A7 /* DetailViewController.swift */; };
@@ -14,7 +20,8 @@
 		4280378A20544475008E53A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4280378920544475008E53A7 /* Assets.xcassets */; };
 		4280378D20544475008E53A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4280378B20544475008E53A7 /* LaunchScreen.storyboard */; };
 		4280379820544475008E53A7 /* TestingStackViewCellsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280379720544475008E53A7 /* TestingStackViewCellsTests.swift */; };
-		428037A32054449B008E53A7 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428037A22054449B008E53A7 /* Event.swift */; };
+		428037A32054449B008E53A7 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428037A22054449B008E53A7 /* EventViewModel.swift */; };
+		4295700F205A82DE00B76CC8 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4295700E205A82DE00B76CC8 /* MyViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,6 +35,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		425DA86E205701F400ABA122 /* Attendee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attendee.swift; sourceTree = "<group>"; };
+		425DA8702057021800ABA122 /* EventTimingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTimingView.swift; sourceTree = "<group>"; };
+		425DA8722057022C00ABA122 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
+		42680C9D205554D700FD0D7C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		42680C9F2055599000FD0D7C /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
+		426D39412059759C007CAC55 /* EventDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsView.swift; sourceTree = "<group>"; };
 		4280377D20544475008E53A7 /* TestingStackViewCells.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestingStackViewCells.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4280378020544475008E53A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4280378220544475008E53A7 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -39,7 +52,8 @@
 		4280379320544475008E53A7 /* TestingStackViewCellsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestingStackViewCellsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4280379720544475008E53A7 /* TestingStackViewCellsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingStackViewCellsTests.swift; sourceTree = "<group>"; };
 		4280379920544475008E53A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		428037A22054449B008E53A7 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		428037A22054449B008E53A7 /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
+		4295700E205A82DE00B76CC8 /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,10 +95,17 @@
 		4280377F20544475008E53A7 /* TestingStackViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				42680C9D205554D700FD0D7C /* Constants.swift */,
+				42680C9F2055599000FD0D7C /* UIColor+Hex.swift */,
 				4280378020544475008E53A7 /* AppDelegate.swift */,
 				4280378220544475008E53A7 /* MasterViewController.swift */,
 				4280378420544475008E53A7 /* DetailViewController.swift */,
-				428037A22054449B008E53A7 /* Event.swift */,
+				428037A22054449B008E53A7 /* EventViewModel.swift */,
+				425DA8722057022C00ABA122 /* EventTableViewCell.swift */,
+				425DA86E205701F400ABA122 /* Attendee.swift */,
+				425DA8702057021800ABA122 /* EventTimingView.swift */,
+				426D39412059759C007CAC55 /* EventDetailsView.swift */,
+				4295700E205A82DE00B76CC8 /* MyViewController.swift */,
 				4280378620544475008E53A7 /* Main.storyboard */,
 				4280378920544475008E53A7 /* Assets.xcassets */,
 				4280378B20544475008E53A7 /* LaunchScreen.storyboard */,
@@ -205,9 +226,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				428037A32054449B008E53A7 /* Event.swift in Sources */,
+				425DA8732057022C00ABA122 /* EventTableViewCell.swift in Sources */,
+				42680C9E205554D700FD0D7C /* Constants.swift in Sources */,
+				428037A32054449B008E53A7 /* EventViewModel.swift in Sources */,
+				425DA8712057021800ABA122 /* EventTimingView.swift in Sources */,
 				4280378520544475008E53A7 /* DetailViewController.swift in Sources */,
+				42680CA02055599000FD0D7C /* UIColor+Hex.swift in Sources */,
+				4295700F205A82DE00B76CC8 /* MyViewController.swift in Sources */,
 				4280378320544475008E53A7 /* MasterViewController.swift in Sources */,
+				425DA86F205701F400ABA122 /* Attendee.swift in Sources */,
+				426D39422059759C007CAC55 /* EventDetailsView.swift in Sources */,
 				4280378120544475008E53A7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

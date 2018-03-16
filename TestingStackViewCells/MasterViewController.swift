@@ -12,9 +12,9 @@ class MasterViewController: UITableViewController {
 
 	var detailViewController: DetailViewController? = nil
 	let events = [
-		Event(title: "Service Appointment at BMW OF SAN FRANCISCO", timing: .allDay, eventHighlightColor: .green, attendees: [], location: "1675 HOWARD STREET, SAN FRANCISCO"),
-		Event(title: "Outlook Mobile All Hands", timing: .allDay, eventHighlightColor: .yellow, attendees: [], location: "Conf Room 1355 Market/350 lots of location text here"),
-		Event(title: "Free Lunch & Speechless Madness!", timing: .allDay, eventHighlightColor: .yellow, attendees: [], location: "Conf Room 1355 Market/350 lots of location text here")
+		EventViewModel(title: "Service Appointment at BMW OF SAN FRANCISCO", timing: .allDay, eventHighlightColor: .green, attendees: [], location: "1675 HOWARD STREET, SAN FRANCISCO"),
+		EventViewModel(title: "Mobile All Hands", timing: .timed(startingTime: "3:00 PM", duration: "1h"), eventHighlightColor: .yellow, attendees: [], location: "Conf Room 1355 Market/350 lots of location text here"),
+		EventViewModel(title: "Free Lunch & Speechless Madness!", timing: .allDay, eventHighlightColor: .yellow, attendees: [], location: "Conf Room 1355 Market/350 lots of location text here")
 	]
 
 
