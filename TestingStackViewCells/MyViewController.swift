@@ -98,6 +98,10 @@ class PresenceStackViewCell: UITableViewCell {
 		label.translatesAutoresizingMaskIntoConstraints = false
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 
+
+		label.numberOfLines = 0
+		label2.numberOfLines = 0
+
 		stackView.spacing = 20.0
 
 		stackView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
@@ -108,8 +112,8 @@ class PresenceStackViewCell: UITableViewCell {
 
 	func configure(with avatars: [Attendee.Avatar], eventTitle: String, eventLocation: String) {
 		presenceView.configure(with: avatars)
-		label.text = eventTitle
-		label2.text = eventLocation
+		label.text = eventTitle + eventTitle + eventTitle + eventTitle + eventTitle + eventTitle + eventTitle
+		label2.text = eventLocation + eventLocation + eventLocation + eventLocation + eventLocation + eventLocation
 	}
 
 	override func layoutSubviews() {
