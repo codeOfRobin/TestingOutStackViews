@@ -26,6 +26,6 @@ class MyNonTableViewController : UIViewController {
 		super.viewDidLayoutSubviews()
 
 		let presenceSize = presence.sizeThatFits(self.view.bounds.size)
-		presence.frame = CGSize(width: presenceSize.width - 40, height: presenceSize.height).centeredVertically(in: self.view.bounds)
+		presence.frame = CGSize(width: presenceSize.width, height: presenceSize.height).centeredVertically(in: self.view.bounds)
 	}
 }

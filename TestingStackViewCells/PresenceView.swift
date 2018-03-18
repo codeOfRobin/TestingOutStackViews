@@ -21,18 +21,19 @@ class PresenceView: UIView {
 		self.addSubview(plusNumberView)
 	}
 
+
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 
 	override func sizeThatFits(_ size: CGSize) -> CGSize {
-		let minimumHeight = plusNumberView.sizeThatFits(size).height
-		return CGSize(width: size.width, height: minimumHeight)
+		let circleEdge = plusNumberView.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)).height
+		return CGSize(width: size.width, height: circleEdge)
 	}
 
 	override var intrinsicContentSize: CGSize {
-		let circleSize = circles.first?.sizeThatFits(self.frame.size) ?? CGSize.init(width: margin, height: margin)
-		return CGSize.init(width: CGFloat(circles.count) * (margin + circleSize.width) + margin , height: circleSize.height)
+		let circleEdge = plusNumberView.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)).height
+		return CGSize(width: CGFloat(circles.count) * (margin + circleEdge) + margin , height: circleEdge + margin * 2)
 	}
 
 	override func layoutSubviews() {
@@ -40,13 +41,13 @@ class PresenceView: UIView {
 
 		let frame = self.frame
 
-		let circleSize = circles.first?.sizeThatFits(self.frame.size) ?? CGSize.init(width: margin, height: margin)
+		let circleEdge = plusNumberView.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)).height
 
-		let numberOfAvatarsToFit = Int((frame.width - margin)/circleSize.width) - 1
+		let numberOfAvatarsToFit = Int((frame.width - margin)/(circleEdge + margin))
 
 		circles.enumerated().forEach { arg in
 			let (index, circle) = arg
-			circle.frame = circleSize.centeredVertically(in: self.bounds, left: frame.minX + margin + CGFloat(index) * (circleSize.width + margin))
+			circle.frame = CGSize(width: circleEdge, height: circleEdge).centeredVertically(in: self.bounds, left: frame.minX + margin + CGFloat(index) * (circleEdge + margin))
 			circle.alpha = (index >= numberOfAvatarsToFit - 1) ? 0.0 : 1.0
 		}
 
@@ -54,11 +55,11 @@ class PresenceView: UIView {
 
 		self.plusNumberView.alpha = extraAvatars > 0 ? 1.0 : 0.0
 
-		if extraAvatars > 0 {
-			plusNumberView.configure(with: circles.count - numberOfAvatarsToFit)
-			let leftover = self.frame.width - CGFloat(numberOfAvatarsToFit) * circleSize.width
+		if extraAvatars > 0 && numberOfAvatarsToFit > 0 {
+			plusNumberView.configure(with: circles.count - numberOfAvatarsToFit + 1)
+			let leftover = self.frame.width - CGFloat(numberOfAvatarsToFit) * circleEdge
 			let lastCircleFrame = (circles.prefix(numberOfAvatarsToFit - 1).last?.frame ?? .zero)
-			let plusNumberSize = plusNumberView.sizeThatFits(CGSize.init(width: leftover, height: circleSize.height))
+			let plusNumberSize = plusNumberView.sizeThatFits(CGSize.init(width: leftover, height: circleEdge))
 			plusNumberView.frame = plusNumberSize.centeredVertically(in: self.bounds, left: lastCircleFrame.maxX + margin)
 		}
 

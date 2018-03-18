@@ -23,7 +23,22 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HyH-ws-Uwr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-778" y="770"/>
+            <point key="canvasLocation" x="-1047" y="494"/>
+        </scene>
+        <!--My Non Table View Controller-->
+        <scene sceneID="mBW-XH-29q">
+            <objects>
+                <viewController id="vvf-8B-zvd" customClass="MyNonTableViewController" customModule="TestingStackViewCells" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NTf-Os-9GH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="FZW-Wx-icM"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wJm-eP-Ug6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1047" y="1155"/>
         </scene>
     </scenes>
 </document>
