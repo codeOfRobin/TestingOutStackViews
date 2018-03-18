@@ -19,7 +19,9 @@ class MyViewController : UIViewController, UITableViewDataSource, UITableViewDel
 
 		tableView.dataSource = self
 		tableView.register(PresenceStackViewCell.self, forCellReuseIdentifier: "cell")
-		tableView.estimatedRowHeight = UITableViewAutomaticDimension
+		tableView.delegate = self
+		tableView.rowHeight = UITableViewAutomaticDimension
+		tableView.estimatedRowHeight = 40.0
 		view.addSubview(tableView)
 	}
 
@@ -46,7 +48,7 @@ class MyViewController : UIViewController, UITableViewDataSource, UITableViewDel
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? PresenceStackViewCell else {
 			return UITableViewCell()
 		}
-		cell.configure(with: avatars + avatars + avatars)
+		cell.configure(with: avatars + avatars + avatars, eventTitle: "title + \(indexPath.row)", eventLocation: "location \(indexPath.row)")
 		return cell
 	}
 
@@ -82,24 +84,36 @@ class PresenceStackViewCell: UITableViewCell {
 
 	let presenceView = PresenceView(frame: .zero)
 	let stackView = UIStackView()
+	let label = UILabel()
+	let label2 = UILabel()
 
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		self.contentView.addSubview(stackView)
+		stackView.axis = .vertical
+		stackView.addArrangedSubview(label)
 		stackView.addArrangedSubview(presenceView)
+		stackView.addArrangedSubview(label2)
+		presenceView.translatesAutoresizingMaskIntoConstraints = false
+		label.translatesAutoresizingMaskIntoConstraints = false
+		stackView.translatesAutoresizingMaskIntoConstraints = false
+
+		stackView.spacing = 20.0
+
+		stackView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
+		stackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
+		stackView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor).isActive = true
+		stackView.rightAnchor.constraint(equalTo: self.contentView.rightAnchor).isActive = true
 	}
 
-	func configure(with avatars: [Attendee.Avatar]) {
+	func configure(with avatars: [Attendee.Avatar], eventTitle: String, eventLocation: String) {
 		presenceView.configure(with: avatars)
+		label.text = eventTitle
+		label2.text = eventLocation
 	}
 
 	override func layoutSubviews() {
 		super.layoutSubviews()
-		stackView.frame = contentView.bounds
-	}
-
-	override func sizeThatFits(_ size: CGSize) -> CGSize {
-		return presenceView.intrinsicContentSize
 	}
 
 	required init?(coder aDecoder: NSCoder) {

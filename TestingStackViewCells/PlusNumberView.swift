@@ -30,7 +30,7 @@ class PlusNumberView: UIView {
 	let yMargin: CGFloat = 7
 
 	let labelAttrs: [NSAttributedStringKey: Any] = [
-		NSAttributedStringKey.font: fontWithMonospacedNumbers(UIFont.preferredFont(forTextStyle: .footnote)),
+		NSAttributedStringKey.font: fontWithMonospacedNumbers(UIFont.preferredFont(forTextStyle: .headline)),
 		NSAttributedStringKey.foregroundColor: UIColor.white
 	]
 

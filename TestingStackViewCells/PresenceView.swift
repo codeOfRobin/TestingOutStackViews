@@ -47,6 +47,7 @@ class PresenceView: UIView {
 
 		circles.enumerated().forEach { arg in
 			let (index, circle) = arg
+			circle.translatesAutoresizingMaskIntoConstraints = false
 			circle.frame = CGSize(width: circleEdge, height: circleEdge).centeredVertically(in: self.bounds, left: frame.minX + margin + CGFloat(index) * (circleEdge + margin))
 			circle.alpha = (index >= numberOfAvatarsToFit - 1) ? 0.0 : 1.0
 		}
@@ -56,6 +57,7 @@ class PresenceView: UIView {
 		self.plusNumberView.alpha = extraAvatars > 0 ? 1.0 : 0.0
 
 		if extraAvatars > 0 && numberOfAvatarsToFit > 0 {
+			plusNumberView.translatesAutoresizingMaskIntoConstraints = false
 			plusNumberView.configure(with: circles.count - numberOfAvatarsToFit + 1)
 			let leftover = self.frame.width - CGFloat(numberOfAvatarsToFit) * circleEdge
 			let lastCircleFrame = (circles.prefix(numberOfAvatarsToFit - 1).last?.frame ?? .zero)
