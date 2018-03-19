@@ -112,8 +112,12 @@ class PresenceStackViewCell: UITableViewCell {
 
 	func configure(with avatars: [Attendee.Avatar], eventTitle: String, eventLocation: String) {
 		presenceView.configure(with: avatars)
-		label.text = eventTitle + eventTitle + eventTitle + eventTitle + eventTitle + eventTitle + eventTitle
-		label2.text = eventLocation + eventLocation + eventLocation + eventLocation + eventLocation + eventLocation
+		let attrs: [NSAttributedStringKey: Any] = [
+			NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .subheadline),
+			NSAttributedStringKey.foregroundColor: UIColor.black
+		]
+		label.attributedText = NSAttributedString.init(string: eventTitle + eventTitle + eventTitle + eventTitle + eventTitle + eventTitle + eventTitle, attributes: attrs)
+		label2.attributedText = NSAttributedString(string: eventLocation + eventLocation + eventLocation + eventLocation + eventLocation + eventLocation, attributes: attrs)
 	}
 
 	override func layoutSubviews() {
