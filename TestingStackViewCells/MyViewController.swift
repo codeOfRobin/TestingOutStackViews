@@ -98,6 +98,15 @@ class LocationView: UIView {
 	}
 }
 
+extension UIView {
+	func alignEdges(to otherView: UIView) {
+		self.topAnchor.constraint(equalTo: otherView.topAnchor).isActive = true
+		self.bottomAnchor.constraint(equalTo: otherView.bottomAnchor).isActive = true
+		self.leftAnchor.constraint(equalTo: otherView.leftAnchor).isActive = true
+		self.rightAnchor.constraint(equalTo: otherView.rightAnchor).isActive = true
+	}
+}
+
 class PresenceStackViewCell: UITableViewCell {
 
 	let presenceView = PresenceView(frame: .zero)
@@ -117,15 +126,13 @@ class PresenceStackViewCell: UITableViewCell {
 		label.translatesAutoresizingMaskIntoConstraints = false
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 
+		stackView.alignEdges(to: self.contentView)
 
 		label.numberOfLines = 0
 
 		stackView.spacing = 20.0
 
-		stackView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
-		stackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
-		stackView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor).isActive = true
-		stackView.rightAnchor.constraint(equalTo: self.contentView.rightAnchor).isActive = true
+
 	}
 
 	func configure(with avatars: [Attendee.Avatar], eventTitle: String, eventLocation: String) {

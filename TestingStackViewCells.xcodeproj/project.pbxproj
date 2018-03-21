@@ -14,7 +14,6 @@
 		424C261D205E4DB0009C22C8 /* PresenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424C261C205E4DB0009C22C8 /* PresenceView.swift */; };
 		425DA86F205701F400ABA122 /* Attendee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425DA86E205701F400ABA122 /* Attendee.swift */; };
 		425DA8712057021800ABA122 /* EventTimingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425DA8702057021800ABA122 /* EventTimingView.swift */; };
-		425DA8732057022C00ABA122 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425DA8722057022C00ABA122 /* EventTableViewCell.swift */; };
 		42680C9E205554D700FD0D7C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42680C9D205554D700FD0D7C /* Constants.swift */; };
 		42680CA02055599000FD0D7C /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42680C9F2055599000FD0D7C /* UIColor+Hex.swift */; };
 		4280378120544475008E53A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280378020544475008E53A7 /* AppDelegate.swift */; };
@@ -43,7 +42,6 @@
 		424C261C205E4DB0009C22C8 /* PresenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenceView.swift; sourceTree = "<group>"; };
 		425DA86E205701F400ABA122 /* Attendee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attendee.swift; sourceTree = "<group>"; };
 		425DA8702057021800ABA122 /* EventTimingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTimingView.swift; sourceTree = "<group>"; };
-		425DA8722057022C00ABA122 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		42680C9D205554D700FD0D7C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		42680C9F2055599000FD0D7C /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		4280377D20544475008E53A7 /* TestingStackViewCells.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestingStackViewCells.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,7 +102,6 @@
 				42680C9F2055599000FD0D7C /* UIColor+Hex.swift */,
 				4280378020544475008E53A7 /* AppDelegate.swift */,
 				428037A22054449B008E53A7 /* EventViewModel.swift */,
-				425DA8722057022C00ABA122 /* EventTableViewCell.swift */,
 				425DA86E205701F400ABA122 /* Attendee.swift */,
 				425DA8702057021800ABA122 /* EventTimingView.swift */,
 				424C2616205C3EF2009C22C8 /* CircularAvatar.swift */,
@@ -231,7 +228,6 @@
 			files = (
 				424C2617205C3EF2009C22C8 /* CircularAvatar.swift in Sources */,
 				424C261D205E4DB0009C22C8 /* PresenceView.swift in Sources */,
-				425DA8732057022C00ABA122 /* EventTableViewCell.swift in Sources */,
 				424C2615205C3E5F009C22C8 /* CGRect + Centering.swift in Sources */,
 				42680C9E205554D700FD0D7C /* Constants.swift in Sources */,
 				428037A32054449B008E53A7 /* EventViewModel.swift in Sources */,
