@@ -98,7 +98,33 @@ class LocationView: UIView {
 	}
 }
 
-class PresenceStackViewCell: UITableViewCell {
+class EventCell: UITableViewCell {
+
+	let mainStackView = UIStackView()
+	let dotView = DotView()
+	let eventDetailsView = EventDetailsView(frame: .zero)
+
+	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		self.addSubview(mainStackView)
+		self.mainStackView.addArrangedSubview(dotView)
+		self.mainStackView.addArrangedSubview(eventDetailsView)
+	}
+
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+}
+
+func alignEdges(of view1: UIStackView, to view2: UITableViewCell) {
+	view1.topAnchor.constraint(equalTo: view2.topAnchor).isActive = true
+	view1.bottomAnchor.constraint(equalTo: view2.bottomAnchor).isActive = true
+	view1.leftAnchor.constraint(equalTo: view2.leftAnchor).isActive = true
+	view1.rightAnchor.constraint(equalTo: view2.rightAnchor).isActive = true
+}
+
+
+class EventDetailsView: UIView {
 
 	let presenceView = PresenceView(frame: .zero)
 	let stackView = UIStackView()
@@ -106,9 +132,10 @@ class PresenceStackViewCell: UITableViewCell {
 	let locationView = LocationView(frame: .zero)
 	let dotView = DotView(frame: .zero)
 
-	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-		super.init(style: style, reuseIdentifier: reuseIdentifier)
-		self.contentView.addSubview(stackView)
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+
+		self.addSubview(stackView)
 		stackView.axis = .vertical
 		stackView.addArrangedSubview(label)
 		stackView.addArrangedSubview(presenceView)
@@ -121,11 +148,6 @@ class PresenceStackViewCell: UITableViewCell {
 		label.numberOfLines = 0
 
 		stackView.spacing = 20.0
-
-		stackView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
-		stackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
-		stackView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor).isActive = true
-		stackView.rightAnchor.constraint(equalTo: self.contentView.rightAnchor).isActive = true
 	}
 
 	func configure(with avatars: [Attendee.Avatar], eventTitle: String, eventLocation: String) {
