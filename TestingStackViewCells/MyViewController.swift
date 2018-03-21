@@ -23,6 +23,10 @@ class MyViewController : UIViewController, UITableViewDataSource, UITableViewDel
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.estimatedRowHeight = 40.0
 		view.addSubview(tableView)
+
+//		let locationView = LocationView.init(frame: CGRect.init(x: 0, y: 44, width: 200, height: 20.0))
+//		locationView.configure(locationName: "asdkfjnaskdfjnsakdnfjasdf")
+//		view.addSubview(locationView)
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -54,29 +58,43 @@ class MyViewController : UIViewController, UITableViewDataSource, UITableViewDel
 
 }
 
-class PresenceALCell: UITableViewCell {
-	let presenceView = PresenceView(frame: .zero)
+class LocationView: UIView {
+	let label = UILabel()
+	let image = UIImageView()
+	let stackView = UIStackView()
 
-	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-		super.init(style: style, reuseIdentifier: reuseIdentifier)
-		self.contentView.addSubview(presenceView)
-		self.presenceView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
-		self.presenceView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
-		self.presenceView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor).isActive = true
-		self.presenceView.rightAnchor.constraint(equalTo: self.contentView.rightAnchor).isActive = true
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		self.addSubview(stackView)
+		stackView.addArrangedSubview(image)
+		stackView.addArrangedSubview(label)
+
+		image.heightAnchor.constraint(equalToConstant: 20.0).isActive = true
+		image.widthAnchor.constraint(equalToConstant: 20.0).isActive = true
+
+		stackView.translatesAutoresizingMaskIntoConstraints = false
+		stackView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+		stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+		stackView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+		stackView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
 	}
 
-	func configure(with avatars: [Attendee.Avatar]) {
-		presenceView.configure(with: avatars)
+	override var intrinsicContentSize: CGSize {
+		return CGSize.init(width: 375, height: 20.0)
 	}
-
-	override func layoutSubviews() {
-		super.layoutSubviews()
-	}
-
 
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+
+	func configure(locationName: String) {
+		let attrs: [NSAttributedStringKey: Any] = [
+			NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .subheadline),
+			NSAttributedStringKey.foregroundColor: UIColor.black
+		]
+		label.attributedText = NSAttributedString(string: locationName, attributes: attrs)
+		label.numberOfLines = 0
+		image.image = #imageLiteral(resourceName: "AC")
 	}
 }
 
@@ -85,7 +103,8 @@ class PresenceStackViewCell: UITableViewCell {
 	let presenceView = PresenceView(frame: .zero)
 	let stackView = UIStackView()
 	let label = UILabel()
-	let label2 = UILabel()
+	let locationView = LocationView(frame: .zero)
+	let dotView = DotView(frame: .zero)
 
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -93,14 +112,13 @@ class PresenceStackViewCell: UITableViewCell {
 		stackView.axis = .vertical
 		stackView.addArrangedSubview(label)
 		stackView.addArrangedSubview(presenceView)
-		stackView.addArrangedSubview(label2)
+		stackView.addArrangedSubview(locationView)
 		presenceView.translatesAutoresizingMaskIntoConstraints = false
 		label.translatesAutoresizingMaskIntoConstraints = false
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 
 
 		label.numberOfLines = 0
-		label2.numberOfLines = 0
 
 		stackView.spacing = 20.0
 
@@ -117,7 +135,7 @@ class PresenceStackViewCell: UITableViewCell {
 			NSAttributedStringKey.foregroundColor: UIColor.black
 		]
 		label.attributedText = NSAttributedString.init(string: eventTitle + eventTitle + eventTitle + eventTitle + eventTitle + eventTitle + eventTitle, attributes: attrs)
-		label2.attributedText = NSAttributedString(string: eventLocation + eventLocation + eventLocation + eventLocation + eventLocation + eventLocation, attributes: attrs)
+		locationView.configure(locationName: eventLocation + eventLocation + eventLocation)
 	}
 
 	override func layoutSubviews() {
@@ -126,5 +144,34 @@ class PresenceStackViewCell: UITableViewCell {
 
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+}
+
+class DotView: UIView {
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+
+		self.clipsToBounds = true
+	}
+
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	func configure(color: UIColor) {
+		self.backgroundColor = color
+	}
+
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		self.layer.cornerRadius = frame.height/2
+	}
+
+	override var intrinsicContentSize: CGSize {
+		return CGSize.init(width: 20.0, height: 20.0)
+	}
+
+	override func sizeThatFits(_ size: CGSize) -> CGSize {
+		return CGSize.init(width: 20.0, height: 20.0)
 	}
 }

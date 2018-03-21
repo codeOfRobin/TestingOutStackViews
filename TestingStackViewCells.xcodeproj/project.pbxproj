@@ -17,7 +17,6 @@
 		425DA8732057022C00ABA122 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425DA8722057022C00ABA122 /* EventTableViewCell.swift */; };
 		42680C9E205554D700FD0D7C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42680C9D205554D700FD0D7C /* Constants.swift */; };
 		42680CA02055599000FD0D7C /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42680C9F2055599000FD0D7C /* UIColor+Hex.swift */; };
-		426D39422059759C007CAC55 /* EventDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426D39412059759C007CAC55 /* EventDetailsView.swift */; };
 		4280378120544475008E53A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280378020544475008E53A7 /* AppDelegate.swift */; };
 		4280378820544475008E53A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4280378620544475008E53A7 /* Main.storyboard */; };
 		4280378A20544475008E53A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4280378920544475008E53A7 /* Assets.xcassets */; };
@@ -47,7 +46,6 @@
 		425DA8722057022C00ABA122 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		42680C9D205554D700FD0D7C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		42680C9F2055599000FD0D7C /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
-		426D39412059759C007CAC55 /* EventDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsView.swift; sourceTree = "<group>"; };
 		4280377D20544475008E53A7 /* TestingStackViewCells.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestingStackViewCells.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4280378020544475008E53A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4280378720544475008E53A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -109,7 +107,6 @@
 				425DA8722057022C00ABA122 /* EventTableViewCell.swift */,
 				425DA86E205701F400ABA122 /* Attendee.swift */,
 				425DA8702057021800ABA122 /* EventTimingView.swift */,
-				426D39412059759C007CAC55 /* EventDetailsView.swift */,
 				424C2616205C3EF2009C22C8 /* CircularAvatar.swift */,
 				424C2618205C3F24009C22C8 /* PlusNumberView.swift */,
 				4280378620544475008E53A7 /* Main.storyboard */,
@@ -243,7 +240,6 @@
 				42680CA02055599000FD0D7C /* UIColor+Hex.swift in Sources */,
 				424C261B205E4D3B009C22C8 /* MyViewController.swift in Sources */,
 				425DA86F205701F400ABA122 /* Attendee.swift in Sources */,
-				426D39422059759C007CAC55 /* EventDetailsView.swift in Sources */,
 				4280378120544475008E53A7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

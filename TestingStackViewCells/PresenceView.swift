@@ -33,7 +33,7 @@ class PresenceView: UIView {
 
 	override var intrinsicContentSize: CGSize {
 		let circleEdge = plusNumberView.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)).height
-		return CGSize(width: CGFloat(circles.count) * (margin + circleEdge) + margin , height: circleEdge + margin * 2)
+		return CGSize(width: CGFloat(circles.count) * (margin + circleEdge), height: circleEdge)
 	}
 
 	override func layoutSubviews() {
@@ -48,7 +48,7 @@ class PresenceView: UIView {
 		circles.enumerated().forEach { arg in
 			let (index, circle) = arg
 			circle.translatesAutoresizingMaskIntoConstraints = false
-			circle.frame = CGSize(width: circleEdge, height: circleEdge).centeredVertically(in: self.bounds, left: frame.minX + margin + CGFloat(index) * (circleEdge + margin))
+			circle.frame = CGSize(width: circleEdge, height: circleEdge).centeredVertically(in: self.bounds, left: frame.minX + CGFloat(index) * (circleEdge + margin))
 			circle.alpha = (index >= numberOfAvatarsToFit - 1) ? 0.0 : 1.0
 		}
 
