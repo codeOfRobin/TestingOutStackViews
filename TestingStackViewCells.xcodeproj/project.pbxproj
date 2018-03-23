@@ -23,6 +23,8 @@
 		4280378D20544475008E53A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4280378B20544475008E53A7 /* LaunchScreen.storyboard */; };
 		4280379820544475008E53A7 /* TestingStackViewCellsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4280379720544475008E53A7 /* TestingStackViewCellsTests.swift */; };
 		428037A32054449B008E53A7 /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428037A22054449B008E53A7 /* EventViewModel.swift */; };
+		42CC68092063861400898FB2 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC68082063861400898FB2 /* DateCollectionViewCell.swift */; };
+		42CC680B2063A25700898FB2 /* MonthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC680A2063A25700898FB2 /* MonthViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,8 @@
 		4280379720544475008E53A7 /* TestingStackViewCellsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingStackViewCellsTests.swift; sourceTree = "<group>"; };
 		4280379920544475008E53A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		428037A22054449B008E53A7 /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
+		42CC68082063861400898FB2 /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
+		42CC680A2063A25700898FB2 /* MonthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +101,8 @@
 		4280377F20544475008E53A7 /* TestingStackViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				42CC68082063861400898FB2 /* DateCollectionViewCell.swift */,
+				42CC680A2063A25700898FB2 /* MonthViewController.swift */,
 				424C261C205E4DB0009C22C8 /* PresenceView.swift */,
 				424C261A205E4D3B009C22C8 /* MyViewController.swift */,
 				424C2614205C3E5F009C22C8 /* CGRect + Centering.swift */,
@@ -236,11 +242,13 @@
 				42680C9E205554D700FD0D7C /* Constants.swift in Sources */,
 				428037A32054449B008E53A7 /* EventViewModel.swift in Sources */,
 				424C2619205C3F24009C22C8 /* PlusNumberView.swift in Sources */,
+				42CC680B2063A25700898FB2 /* MonthViewController.swift in Sources */,
 				425DA8712057021800ABA122 /* EventTimingView.swift in Sources */,
 				42680CA02055599000FD0D7C /* UIColor+Hex.swift in Sources */,
 				424C261B205E4D3B009C22C8 /* MyViewController.swift in Sources */,
 				425DA86F205701F400ABA122 /* Attendee.swift in Sources */,
 				4280378120544475008E53A7 /* AppDelegate.swift in Sources */,
+				42CC68092063861400898FB2 /* DateCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

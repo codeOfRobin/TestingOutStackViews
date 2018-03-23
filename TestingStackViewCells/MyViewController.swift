@@ -18,15 +18,11 @@ class MyViewController : UIViewController, UITableViewDataSource, UITableViewDel
 		super.viewDidLoad()
 
 		tableView.dataSource = self
-		tableView.register(PresenceStackViewCell.self, forCellReuseIdentifier: "cell")
+		tableView.register(EventCell.self, forCellReuseIdentifier: "cell")
 		tableView.delegate = self
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.estimatedRowHeight = 40.0
 		view.addSubview(tableView)
-
-//		let locationView = LocationView.init(frame: CGRect.init(x: 0, y: 44, width: 200, height: 20.0))
-//		locationView.configure(locationName: "asdkfjnaskdfjnsakdnfjasdf")
-//		view.addSubview(locationView)
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -49,10 +45,12 @@ class MyViewController : UIViewController, UITableViewDataSource, UITableViewDel
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? PresenceStackViewCell else {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? EventCell else {
 			return UITableViewCell()
 		}
-		cell.configure(with: avatars + avatars + avatars, eventTitle: "title + \(indexPath.row)", eventLocation: "location \(indexPath.row)")
+
+		let attendees = (avatars + avatars + avatars + avatars).map{ Attendee(name: "Attendee \(indexPath.row)", avatar: $0) }
+		cell.configure(with: EventViewModel(title: "title + \(indexPath.row)", timing: .allDay, eventHighlightColor: .orange, attendees: attendees, location: "location \(indexPath.row)"))
 		return cell
 	}
 
@@ -98,31 +96,62 @@ class LocationView: UIView {
 	}
 }
 
+extension UIView {
+	func alignEdges(to otherView: UIView) {
+		self.topAnchor.constraint(equalTo: otherView.topAnchor).isActive = true
+		self.bottomAnchor.constraint(equalTo: otherView.bottomAnchor).isActive = true
+		self.leftAnchor.constraint(equalTo: otherView.leftAnchor).isActive = true
+		self.rightAnchor.constraint(equalTo: otherView.rightAnchor).isActive = true
+	}
+}
+
 class EventCell: UITableViewCell {
 
 	let mainStackView = UIStackView()
 	let dotView = DotView()
 	let eventDetailsView = EventDetailsView(frame: .zero)
+	let eventTimingView = UILabel()
 
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
-		self.addSubview(mainStackView)
+		self.contentView.addSubview(mainStackView)
+
+		self.mainStackView.addArrangedSubview(eventTimingView)
 		self.mainStackView.addArrangedSubview(dotView)
 		self.mainStackView.addArrangedSubview(eventDetailsView)
+
+		eventDetailsView.translatesAutoresizingMaskIntoConstraints = false
+		dotView.translatesAutoresizingMaskIntoConstraints = false
+		mainStackView.translatesAutoresizingMaskIntoConstraints = false
+		self.mainStackView.alignEdges(to: self.contentView)
+
+		dotView.heightAnchor.constraint(equalToConstant: 20.0).isActive = true
+		dotView.widthAnchor.constraint(equalToConstant: 20.0).isActive = true
+
+		eventTimingView.widthAnchor.constraint(equalTo: eventDetailsView.widthAnchor, multiplier: 0.20, constant: 0.0).isActive = true
+
+		self.mainStackView.alignment = .center
+
+		self.mainStackView.spacing = 10.0
+
+		self.mainStackView.distribution = .fillProportionally
+	}
+
+	func configure(with event: EventViewModel) {
+		self.dotView.configure(color: .orange)
+		self.eventDetailsView.configure(with: event.attendees.map{ $0.avatar }, eventTitle: event.title + event.title + event.title + event.title, eventLocation: event.location)
+
+		let attrs: [NSAttributedStringKey: Any] = [
+			NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .subheadline),
+			NSAttributedStringKey.foregroundColor: UIColor.black
+		]
+		self.eventTimingView.attributedText = NSAttributedString(string: "event time", attributes: attrs)
 	}
 
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 }
-
-func alignEdges(of view1: UIStackView, to view2: UITableViewCell) {
-	view1.topAnchor.constraint(equalTo: view2.topAnchor).isActive = true
-	view1.bottomAnchor.constraint(equalTo: view2.bottomAnchor).isActive = true
-	view1.leftAnchor.constraint(equalTo: view2.leftAnchor).isActive = true
-	view1.rightAnchor.constraint(equalTo: view2.rightAnchor).isActive = true
-}
-
 
 class EventDetailsView: UIView {
 
@@ -148,16 +177,19 @@ class EventDetailsView: UIView {
 		label.numberOfLines = 0
 
 		stackView.spacing = 20.0
+		stackView.alignEdges(to: self)
 	}
 
-	func configure(with avatars: [Attendee.Avatar], eventTitle: String, eventLocation: String) {
+	func configure(with avatars: [Attendee.Avatar], eventTitle: String, eventLocation: String?) {
 		presenceView.configure(with: avatars)
 		let attrs: [NSAttributedStringKey: Any] = [
 			NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .subheadline),
 			NSAttributedStringKey.foregroundColor: UIColor.black
 		]
 		label.attributedText = NSAttributedString.init(string: eventTitle + eventTitle + eventTitle + eventTitle + eventTitle + eventTitle + eventTitle, attributes: attrs)
-		locationView.configure(locationName: eventLocation + eventLocation + eventLocation)
+		if let locationString = eventLocation {
+			locationView.configure(locationName: locationString + locationString + locationString)
+		}
 	}
 
 	override func layoutSubviews() {
