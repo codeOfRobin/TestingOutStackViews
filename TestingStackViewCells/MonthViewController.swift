@@ -173,28 +173,6 @@ class MonthViewController: UIViewController, UICollectionViewDataSource, UIColle
         // Do any additional setup after loading the view.
 
 
-		var calendar = Calendar(identifier: .gregorian)
-
-		let currentDate = Date()
-
-		var dateComponent = calendar.dateComponents([.year, .month, .day], from: currentDate)
-		dateComponent.day = 1
-
-		var offsetFromStart = 0
-		var daysInMonth: [Date] = []
-
-		let firstDayOfMonth = calendar.date(from: dateComponent)!
-
-		var nextDay = firstDayOfMonth
-
-		while calendar.isDate(nextDay, equalTo: currentDate, toGranularity: .year) {
-			daysInMonth.append(nextDay)
-			offsetFromStart += 1
-			nextDay = calendar.date(byAdding: .day, value: offsetFromStart, to: firstDayOfMonth)!
-		}
-
-		print(daysInMonth.map{ calendar.dateComponents([.day], from: $0).day })
-
     }
 
 	override func viewDidLayoutSubviews() {

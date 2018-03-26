@@ -18,7 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 		// Override point for customization after application launch
 
 		window = UIWindow(frame: UIScreen.main.bounds)
-		let homeViewController = MonthViewController()
+//		let homeViewController = MonthViewController()
+		let homeViewController = MyViewController.init(nibName: nil, bundle: nil)
 		window?.rootViewController = homeViewController
 		window?.makeKeyAndVisible()
 		return true

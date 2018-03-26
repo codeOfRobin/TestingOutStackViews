@@ -23,6 +23,7 @@ class MyViewController : UIViewController, UITableViewDataSource, UITableViewDel
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.estimatedRowHeight = 40.0
 		view.addSubview(tableView)
+
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -110,7 +111,7 @@ class EventCell: UITableViewCell {
 	let mainStackView = UIStackView()
 	let dotView = DotView()
 	let eventDetailsView = EventDetailsView(frame: .zero)
-	let eventTimingView = UILabel()
+	let eventTimingView = EventTimingView(frame: .zero)
 
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -128,15 +129,19 @@ class EventCell: UITableViewCell {
 		dotView.heightAnchor.constraint(equalToConstant: 20.0).isActive = true
 		dotView.widthAnchor.constraint(equalToConstant: 20.0).isActive = true
 
-		eventTimingView.widthAnchor.constraint(equalTo: eventDetailsView.widthAnchor, multiplier: 0.20, constant: 0.0).isActive = true
+		eventTimingView.widthAnchor.constraint(greaterThanOrEqualToConstant: 70.0)
 
-		self.mainStackView.alignment = .center
+		self.mainStackView.alignment = .firstBaseline
 
 		self.mainStackView.spacing = 10.0
 
 		self.mainStackView.distribution = .fillProportionally
 	}
 
+
+	override func layoutSubviews() {
+		super.layoutSubviews()
+	}
 	func configure(with event: EventViewModel) {
 		self.dotView.configure(color: .orange)
 		self.eventDetailsView.configure(with: event.attendees.map{ $0.avatar }, eventTitle: event.title + event.title + event.title + event.title, eventLocation: event.location)
@@ -145,7 +150,7 @@ class EventCell: UITableViewCell {
 			NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .subheadline),
 			NSAttributedStringKey.foregroundColor: UIColor.black
 		]
-		self.eventTimingView.attributedText = NSAttributedString(string: "event time", attributes: attrs)
+		self.eventTimingView.configure(with: .allDay)
 	}
 
 	required init?(coder aDecoder: NSCoder) {

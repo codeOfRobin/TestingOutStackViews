@@ -16,6 +16,7 @@ class CircularAvatar: UIImageView {
 		super.init(image: image)
 
 		self.clipsToBounds = true
+		self.translatesAutoresizingMaskIntoConstraints = true
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
