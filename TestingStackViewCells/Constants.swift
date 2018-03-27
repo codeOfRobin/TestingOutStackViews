@@ -40,12 +40,17 @@ enum Styles {
 	enum Text {
 		static let StartingTimeStyle = style(from: Colors.Black.defaultText.color, font: UIFont.preferredFont(forTextStyle: .subheadline))
 		static let DurationStyle = style(from: Colors.Gray.medium.color, font: UIFont.preferredFont(forTextStyle: .footnote))
+		static let LocationStyle = style(from: .black, font: UIFont.preferredFont(forTextStyle: .subheadline))
+		static let EventTitleStyle = style(from: .black, font: UIFont.preferredFont(forTextStyle: .subheadline))
+		static let PlusNumberStyle = style(from: .white, font: fontWithMonospacedNumbers(UIFont.preferredFont(forTextStyle: .headline)))
+		static let DateHeaderStyle = style(from: Colors.Gray.oslo.color, font: UIFont.preferredFont(forTextStyle: .callout))
 	}
 
 	enum Colors {
 		enum Gray {
 			static let dark = "A9A9A9"
 			static let medium = "A3A3A3"
+			static let oslo = "8E8E93"
 		}
 
 		enum Black {

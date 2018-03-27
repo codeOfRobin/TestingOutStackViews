@@ -29,22 +29,17 @@ class PlusNumberView: UIView {
 	let xMargin: CGFloat = 6
 	let yMargin: CGFloat = 7
 
-	let labelAttrs: [NSAttributedStringKey: Any] = [
-		NSAttributedStringKey.font: fontWithMonospacedNumbers(UIFont.preferredFont(forTextStyle: .headline)),
-		NSAttributedStringKey.foregroundColor: UIColor.white
-	]
-
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		self.addSubview(label)
-		label.attributedText = NSAttributedString(string: "+0", attributes: labelAttrs)
+		label.attributedText = NSAttributedString(string: "+0", attributes: Styles.Text.PlusNumberStyle)
 		self.backgroundColor = .darkGray
 		self.clipsToBounds = true
 	}
 
 	func configure(with number: Int) {
 
-		self.label.attributedText = NSAttributedString.init(string: "+\(number)", attributes: labelAttrs)
+		self.label.attributedText = NSAttributedString.init(string: "+\(number)", attributes: Styles.Text.PlusNumberStyle)
 	}
 
 	override var intrinsicContentSize: CGSize {

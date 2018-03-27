@@ -9,6 +9,28 @@
 import Foundation
 import UIKit
 
+class DateHeaderView: UITableViewHeaderFooterView {
+	let titleLabel = UILabel()
+
+	let titleInsets = UIEdgeInsets(top: 6, left: 16, bottom: 6, right: 16)
+
+	override init(reuseIdentifier: String?) {
+		super.init(reuseIdentifier: reuseIdentifier)
+		titleLabel.numberOfLines = 0
+		self.addSubview(titleLabel)
+		titleLabel.translatesAutoresizingMaskIntoConstraints = false
+		titleLabel.alignEdges(to: self, insets: titleInsets)
+	}
+
+	func configure(title: String) {
+		titleLabel.attributedText = NSAttributedString(string: title, attributes: Styles.Text.DateHeaderStyle)
+	}
+
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+}
+
 class MyViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
 	let avatars: [Attendee.Avatar] = [.image(#imageLiteral(resourceName: "AC")), .image(#imageLiteral(resourceName: "NM2")), .image(#imageLiteral(resourceName: "NM")), .image(#imageLiteral(resourceName: "JD"))]
 
@@ -19,8 +41,10 @@ class MyViewController : UIViewController, UITableViewDataSource, UITableViewDel
 
 		tableView.dataSource = self
 		tableView.register(EventCell.self, forCellReuseIdentifier: "cell")
+		tableView.register(DateHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
 		tableView.delegate = self
 		tableView.rowHeight = UITableViewAutomaticDimension
+		tableView.sectionHeaderHeight = UITableViewAutomaticDimension
 		tableView.estimatedRowHeight = 40.0
 		view.addSubview(tableView)
 
@@ -34,16 +58,25 @@ class MyViewController : UIViewController, UITableViewDataSource, UITableViewDel
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 
-		tableView.frame = view.bounds
+		tableView.frame = CGRect.init(x: view.safeAreaInsets.left, y: view.safeAreaInsets.top, width: view.bounds.width - view.safeAreaInsets.left - view.safeAreaInsets.right, height: view.bounds.height - view.safeAreaInsets.top - view.safeAreaInsets.bottom)
+	}
+
+	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? DateHeaderView else {
+			return nil
+		}
+		header.configure(title: "title \(section)")
+		return header
 	}
 
 	func numberOfSections(in tableView: UITableView) -> Int {
-		return 1
+		return 10
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 10
+		return 2
 	}
+
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? EventCell else {
@@ -51,7 +84,7 @@ class MyViewController : UIViewController, UITableViewDataSource, UITableViewDel
 		}
 
 		let attendees = (avatars + avatars + avatars + avatars).map{ Attendee(name: "Attendee \(indexPath.row)", avatar: $0) }
-		cell.configure(with: EventViewModel(title: "title + \(indexPath.row)", timing: .allDay, eventHighlightColor: .orange, attendees: attendees, location: "location \(indexPath.row)"))
+		cell.configure(with: EventViewModel(title: "title + \(indexPath.row)", timing: .timed(startingTime: "6:00 pmasdjfhbsjdfhb", duration: "2h"), eventHighlightColor: .orange, attendees: attendees, location: "location \(indexPath.row)"))
 		return cell
 	}
 
@@ -60,26 +93,34 @@ class MyViewController : UIViewController, UITableViewDataSource, UITableViewDel
 class LocationView: UIView {
 	let label = UILabel()
 	let image = UIImageView()
-	let stackView = UIStackView()
+
+	let margin: CGFloat = 8
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		self.addSubview(stackView)
-		stackView.addArrangedSubview(image)
-		stackView.addArrangedSubview(label)
 
-		image.heightAnchor.constraint(equalToConstant: 20.0).isActive = true
-		image.widthAnchor.constraint(equalToConstant: 20.0).isActive = true
+		self.addSubview(label)
+		self.addSubview(image)
 
-		stackView.translatesAutoresizingMaskIntoConstraints = false
-		stackView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-		stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-		stackView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-		stackView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-	}
 
-	override var intrinsicContentSize: CGSize {
-		return CGSize.init(width: 375, height: 20.0)
+		label.translatesAutoresizingMaskIntoConstraints = false
+		image.translatesAutoresizingMaskIntoConstraints = false
+		label.numberOfLines = 1
+
+		NSLayoutConstraint.activate([
+			image.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+			label.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: margin),
+			label.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+			image.topAnchor.constraint(equalTo: self.topAnchor),
+			label.topAnchor.constraint(equalTo: self.topAnchor),
+			label.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+			image.heightAnchor.constraint(equalTo: label.heightAnchor),
+			image.widthAnchor.constraint(equalTo: image.heightAnchor)
+		])
+
+		image.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+		image.setContentHuggingPriority(.defaultLow, for: .vertical)
+		image.contentMode = .scaleAspectFit
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -87,22 +128,18 @@ class LocationView: UIView {
 	}
 
 	func configure(locationName: String) {
-		let attrs: [NSAttributedStringKey: Any] = [
-			NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .subheadline),
-			NSAttributedStringKey.foregroundColor: UIColor.black
-		]
-		label.attributedText = NSAttributedString(string: locationName, attributes: attrs)
-		label.numberOfLines = 0
-		image.image = #imageLiteral(resourceName: "AC")
+		label.attributedText = NSAttributedString(string: locationName, attributes: Styles.Text.LocationStyle)
+		// Location by Ralf Schmitzer from the Noun Project
+		image.image = #imageLiteral(resourceName: "Pin")
 	}
 }
 
 extension UIView {
-	func alignEdges(to otherView: UIView) {
-		self.topAnchor.constraint(equalTo: otherView.topAnchor).isActive = true
-		self.bottomAnchor.constraint(equalTo: otherView.bottomAnchor).isActive = true
-		self.leftAnchor.constraint(equalTo: otherView.leftAnchor).isActive = true
-		self.rightAnchor.constraint(equalTo: otherView.rightAnchor).isActive = true
+	func alignEdges(to otherView: UIView, insets: UIEdgeInsets = .zero) {
+		self.topAnchor.constraint(equalTo: otherView.topAnchor, constant: insets.top).isActive = true
+		self.bottomAnchor.constraint(equalTo: otherView.bottomAnchor, constant: -insets.bottom).isActive = true
+		self.leftAnchor.constraint(equalTo: otherView.leftAnchor, constant: insets.left).isActive = true
+		self.rightAnchor.constraint(equalTo: otherView.rightAnchor, constant: -insets.right).isActive = true
 	}
 }
 
@@ -129,7 +166,7 @@ class EventCell: UITableViewCell {
 		dotView.heightAnchor.constraint(equalToConstant: 20.0).isActive = true
 		dotView.widthAnchor.constraint(equalToConstant: 20.0).isActive = true
 
-		eventTimingView.widthAnchor.constraint(greaterThanOrEqualToConstant: 70.0)
+		eventTimingView.widthAnchor.constraint(equalToConstant: 80.0).isActive = true
 
 		self.mainStackView.alignment = .firstBaseline
 
@@ -145,12 +182,7 @@ class EventCell: UITableViewCell {
 	func configure(with event: EventViewModel) {
 		self.dotView.configure(color: .orange)
 		self.eventDetailsView.configure(with: event.attendees.map{ $0.avatar }, eventTitle: event.title + event.title + event.title + event.title, eventLocation: event.location)
-
-		let attrs: [NSAttributedStringKey: Any] = [
-			NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .subheadline),
-			NSAttributedStringKey.foregroundColor: UIColor.black
-		]
-		self.eventTimingView.configure(with: .allDay)
+		self.eventTimingView.configure(with: event.timing)
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -162,7 +194,7 @@ class EventDetailsView: UIView {
 
 	let presenceView = PresenceView(frame: .zero)
 	let stackView = UIStackView()
-	let label = UILabel()
+	let titleLabel = UILabel()
 	let locationView = LocationView(frame: .zero)
 	let dotView = DotView(frame: .zero)
 
@@ -171,15 +203,15 @@ class EventDetailsView: UIView {
 
 		self.addSubview(stackView)
 		stackView.axis = .vertical
-		stackView.addArrangedSubview(label)
+		stackView.addArrangedSubview(titleLabel)
 		stackView.addArrangedSubview(presenceView)
 		stackView.addArrangedSubview(locationView)
 		presenceView.translatesAutoresizingMaskIntoConstraints = false
-		label.translatesAutoresizingMaskIntoConstraints = false
+		titleLabel.translatesAutoresizingMaskIntoConstraints = false
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 
 
-		label.numberOfLines = 0
+		titleLabel.numberOfLines = 0
 
 		stackView.spacing = 20.0
 		stackView.alignEdges(to: self)
@@ -187,11 +219,7 @@ class EventDetailsView: UIView {
 
 	func configure(with avatars: [Attendee.Avatar], eventTitle: String, eventLocation: String?) {
 		presenceView.configure(with: avatars)
-		let attrs: [NSAttributedStringKey: Any] = [
-			NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .subheadline),
-			NSAttributedStringKey.foregroundColor: UIColor.black
-		]
-		label.attributedText = NSAttributedString.init(string: eventTitle + eventTitle + eventTitle + eventTitle + eventTitle + eventTitle + eventTitle, attributes: attrs)
+		titleLabel.attributedText = NSAttributedString(string: eventTitle + eventTitle + eventTitle + eventTitle + eventTitle + eventTitle + eventTitle, attributes: Styles.Text.EventTitleStyle)
 		if let locationString = eventLocation {
 			locationView.configure(locationName: locationString + locationString + locationString)
 		}
