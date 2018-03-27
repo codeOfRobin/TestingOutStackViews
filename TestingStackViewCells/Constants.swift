@@ -26,7 +26,9 @@ func style(from color: UIColor, font: UIFont) -> [NSAttributedStringKey: Any] {
 enum Constants {
 
 	enum Strings {
+		// TODO: Should this be capitalized here? or capitalize later?
 		static let allDay = NSLocalizedString("ALL DAY", comment: "")
+		static let noEvents = NSLocalizedString("No events", comment: "")
 	}
 }
 
@@ -38,12 +40,15 @@ enum Styles {
 	}
 
 	enum Text {
+		//TODO: should you have `style` at the end
 		static let StartingTimeStyle = style(from: Colors.Black.defaultText.color, font: UIFont.preferredFont(forTextStyle: .subheadline))
-		static let DurationStyle = style(from: Colors.Gray.medium.color, font: UIFont.preferredFont(forTextStyle: .footnote))
+		//TODO: or should it be like this:
+		static let Duration = style(from: Colors.Gray.medium.color, font: UIFont.preferredFont(forTextStyle: .footnote))
 		static let LocationStyle = style(from: .black, font: UIFont.preferredFont(forTextStyle: .subheadline))
 		static let EventTitleStyle = style(from: .black, font: UIFont.preferredFont(forTextStyle: .subheadline))
 		static let PlusNumberStyle = style(from: .white, font: fontWithMonospacedNumbers(UIFont.preferredFont(forTextStyle: .headline)))
 		static let DateHeaderStyle = style(from: Colors.Gray.oslo.color, font: UIFont.preferredFont(forTextStyle: .callout))
+		static let EmptyEventsStyle = style(from: Colors.Gray.dark.color, font: UIFont.preferredFont(forTextStyle: .subheadline))
 	}
 
 	enum Colors {
@@ -51,6 +56,8 @@ enum Styles {
 			static let dark = "A9A9A9"
 			static let medium = "A3A3A3"
 			static let oslo = "8E8E93"
+			static let mediumDark = "A8A8AC"
+			//TODO: BETTER NAMES
 		}
 
 		enum Black {

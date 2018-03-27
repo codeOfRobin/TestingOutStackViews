@@ -47,7 +47,11 @@ class EventTimingView: UIView {
 		let startingTimeSize = startingTimeLabel.sizeThatFits(CGSize(width: min(frame.size.width, startingTimeIntrinsicSize.width), height: CGFloat.greatestFiniteMagnitude))
 		let durationIntrinsicSize = durationLabel.intrinsicContentSize
 		let durationSize = durationLabel.sizeThatFits(CGSize(width: min(frame.size.width, durationIntrinsicSize.width), height: CGFloat.greatestFiniteMagnitude))
-		return CGSize(width: max(startingTimeSize.width, durationSize.width), height: startingTimeSize.height + margin + durationSize.height)
+		if durationSize == .zero {
+			return CGSize(width: max(startingTimeSize.width, durationSize.width), height: startingTimeSize.height)
+		} else {
+			return CGSize(width: max(startingTimeSize.width, durationSize.width), height: startingTimeSize.height + margin + durationSize.height)
+		}
 	}
 
 	func configure(with timing: EventViewModel.EventTiming) {
@@ -56,7 +60,7 @@ class EventTimingView: UIView {
 			self.startingTimeLabel.attributedText = NSAttributedString(string: Constants.Strings.allDay, attributes: Styles.Text.StartingTimeStyle)
 		case .timed(startingTime: let startingTime, duration: let duration):
 			self.startingTimeLabel.attributedText = NSAttributedString(string: startingTime, attributes: Styles.Text.StartingTimeStyle)
-			self.durationLabel.attributedText = NSAttributedString(string: duration, attributes: Styles.Text.DurationStyle)
+			self.durationLabel.attributedText = NSAttributedString(string: duration, attributes: Styles.Text.Duration)
 		}
 		self.setNeedsLayout()
 	}

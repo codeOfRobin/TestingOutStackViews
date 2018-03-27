@@ -31,8 +31,6 @@ class EventTableViewCell: UITableViewCell {
 			self.stackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16.0),
 			self.stackView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 12.0),
 			self.stackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -12.0),
-			// This is a hack
-//			self.timingView.widthAnchor.constraint(equalToConstant: 90.0)
 			])
 
 		self.stackView.translatesAutoresizingMaskIntoConstraints = false
