@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
 		window = UIWindow(frame: UIScreen.main.bounds)
 //		let homeViewController = MonthViewController()
-		let homeViewController = MyViewController.init(nibName: nil, bundle: nil)
+		let homeViewController = MyViewController()
 		homeViewController.view.backgroundColor = .white
 		window?.rootViewController = homeViewController
 		window?.makeKeyAndVisible()

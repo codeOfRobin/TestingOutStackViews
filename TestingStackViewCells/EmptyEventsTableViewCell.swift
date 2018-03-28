@@ -21,7 +21,6 @@ class EmptyEventsTableViewCell: UITableViewCell {
 
 		//TODO: good place to add constraints?
 		label.numberOfLines = 0
-		self.addSubview(label)
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.alignEdges(to: self.contentView, insets: insets)
 	}

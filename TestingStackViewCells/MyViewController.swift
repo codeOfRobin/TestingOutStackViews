@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MyViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MyViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
 
 	let avatars: [Attendee.Avatar] = [.image(#imageLiteral(resourceName: "AC")), .image(#imageLiteral(resourceName: "NM2")), .image(#imageLiteral(resourceName: "NM")), .image(#imageLiteral(resourceName: "JD"))]
 
@@ -25,6 +25,17 @@ class MyViewController : UIViewController, UITableViewDataSource, UITableViewDel
 	var offsets = -100...100
 
 	let tableView = UITableView()
+	let collectionView: UICollectionView
+	let layout = MonthFlowLayout()
+
+	init() {
+		self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -50,9 +61,17 @@ class MyViewController : UIViewController, UITableViewDataSource, UITableViewDel
 		tableView.delegate = self
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.sectionHeaderHeight = UITableViewAutomaticDimension
+		tableView.tableFooterView = UIView()
+
+		collectionView.dataSource = self
+		collectionView.delegate = self
+		collectionView.register(DayCell.self, forCellWithReuseIdentifier: "cell")
+		collectionView.backgroundColor = .white
 
 		tableView.scrollToRow(at: IndexPath(row: 0, section: offsets.count/2), at: .middle, animated: true)
+		view.backgroundColor = .white
 		view.addSubview(tableView)
+		view.addSubview(collectionView)
 
 	}
 
@@ -64,7 +83,9 @@ class MyViewController : UIViewController, UITableViewDataSource, UITableViewDel
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 
-		tableView.frame = CGRect.init(x: view.safeAreaInsets.left, y: view.safeAreaInsets.top, width: view.bounds.width - view.safeAreaInsets.left - view.safeAreaInsets.right, height: view.bounds.height - view.safeAreaInsets.top - view.safeAreaInsets.bottom)
+		let width = view.bounds.width - view.safeAreaInsets.left - view.safeAreaInsets.right
+		collectionView.frame = CGRect(x: view.safeAreaInsets.left, y: view.safeAreaInsets.top, width: width, height: width)
+		tableView.frame = CGRect(x: collectionView.frame.minX, y: collectionView.frame.maxY, width: width, height: view.bounds.height - view.safeAreaInsets.top - view.safeAreaInsets.bottom - width)
 	}
 
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -127,6 +148,27 @@ class MyViewController : UIViewController, UITableViewDataSource, UITableViewDel
 			cell.configure(text: Constants.Strings.noEvents)
 			return cell
 		}
+	}
+
+
+	func numberOfSections(in collectionView: UICollectionView) -> Int {
+		return 1
+	}
+
+	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		return offsets.count
+	}
+
+	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? DayCell else {
+			return UICollectionViewCell()
+		}
+		cell.configure(with: indexPath.row % 30, month: "Mar")
+		return cell
+	}
+
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+		return CGSize(width: Int(collectionView.frame.width/7), height: Int(collectionView.frame.width/7))
 	}
 
 }
