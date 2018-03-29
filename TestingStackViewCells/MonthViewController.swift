@@ -16,7 +16,7 @@ class MonthViewController: UIViewController, UICollectionViewDataSource, UIColle
 
 //	#A week is always seven days
 //	Currently true, but historically false. A couple of out-of-use calendars, like the Decimal calendar and the Egyptian calendar had weeks that were 7, 8, or even 10 days.
-	let numberOfColumns = 7
+	let numberOfColumns: CGFloat = 7
 
 	init() {
 		self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -63,16 +63,17 @@ class MonthViewController: UIViewController, UICollectionViewDataSource, UIColle
 		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? DayCell else {
 			return UICollectionViewCell()
 		}
-		cell.configure(with: indexPath.row % 30, month: "Mar")
+		cell.configure(with: indexPath.row % 30, month: "Mar", isOdd: true)
 		return cell
 	}
 
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		print("selected \(indexPath.row)")
+		
 	}
 
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		return CGSize(width: Int(collectionView.frame.width/7), height: Int(collectionView.frame.width/7))
+		let size = CGSize(width: (collectionView.frame.width/numberOfColumns) - 0.5, height: (collectionView.frame.width/numberOfColumns) - 0.5)
+		return size
 	}
 
 }

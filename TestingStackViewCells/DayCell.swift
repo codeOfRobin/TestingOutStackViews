@@ -30,22 +30,36 @@ class DayCell: UICollectionViewCell {
 	let dayLabel = UILabel()
 	let monthLabel = UILabel()
 	let stackView = UIStackView()
+	let highlightedBackgroundView = UIView()
+
+	override var isHighlighted: Bool {
+		didSet {
+			highlightedBackgroundView.isHidden = !isHighlighted
+			self.dayLabel.textColor = isHighlighted ? .white : .black
+			self.monthLabel.textColor = isHighlighted ? .white : .black
+		}
+	}
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 
 		contentView.addSubview(stackView)
+		contentView.insertSubview(highlightedBackgroundView, belowSubview: stackView)
 		stackView.alignEdges(to: contentView)
 
 		stackView.axis = .vertical
 
 		stackView.translatesAutoresizingMaskIntoConstraints = false
+		stackView.backgroundColor = .clear
 
 		stackView.addArrangedSubview(monthLabel)
 		stackView.addArrangedSubview(dayLabel)
 
 		self.dayLabel.textAlignment = .center
 		self.monthLabel.textAlignment = .center
+
+		highlightedBackgroundView.backgroundColor = Styles.Colors.selectedCell.color
+		highlightedBackgroundView.isHidden = true
 
 	}
 
@@ -55,11 +69,14 @@ class DayCell: UICollectionViewCell {
 
 	override func layoutSubviews() {
 		super.layoutSubviews()
+		self.highlightedBackgroundView.frame = self.bounds
+		self.highlightedBackgroundView.layer.cornerRadius = max(self.frame.width/2, self.frame.height/2)
 	}
 
 	// still confused what this should look like 😕. Should this accept DateComponents? Should month not be optional? SHould the logic for not showing the month label not be inside the cell? It def shouldn't have a Date
-	func configure(with day: Int, month: String?) {
-		self.backgroundColor = .white
+	func configure(with day: Int, month: String?, isOdd: Bool) {
+
+		self.backgroundColor = isOdd ? .white : Styles.Colors.contrastBackgroundColor.color
 
 		if day == 1 {
 			self.monthLabel.text = month

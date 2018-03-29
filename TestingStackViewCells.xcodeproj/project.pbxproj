@@ -17,7 +17,7 @@
 		424C2615205C3E5F009C22C8 /* CGRect + Centering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424C2614205C3E5F009C22C8 /* CGRect + Centering.swift */; };
 		424C2617205C3EF2009C22C8 /* CircularAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424C2616205C3EF2009C22C8 /* CircularAvatar.swift */; };
 		424C2619205C3F24009C22C8 /* PlusNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424C2618205C3F24009C22C8 /* PlusNumberView.swift */; };
-		424C261B205E4D3B009C22C8 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424C261A205E4D3B009C22C8 /* MyViewController.swift */; };
+		424C261B205E4D3B009C22C8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424C261A205E4D3B009C22C8 /* ViewController.swift */; };
 		424C261D205E4DB0009C22C8 /* PresenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424C261C205E4DB0009C22C8 /* PresenceView.swift */; };
 		425DA86F205701F400ABA122 /* Attendee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425DA86E205701F400ABA122 /* Attendee.swift */; };
 		425DA8712057021800ABA122 /* EventTimingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425DA8702057021800ABA122 /* EventTimingView.swift */; };
@@ -32,6 +32,7 @@
 		42A943A8206A8C9500595E47 /* DateHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A943A7206A8C9500595E47 /* DateHeaderView.swift */; };
 		42CC68092063861400898FB2 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC68082063861400898FB2 /* DateCollectionViewCell.swift */; };
 		42CC680B2063A25700898FB2 /* MonthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC680A2063A25700898FB2 /* MonthViewController.swift */; };
+		42EF7553206CB5ED00CC08D5 /* FeedbackVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EF7552206CB5ED00CC08D5 /* FeedbackVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,7 +56,7 @@
 		424C2614205C3E5F009C22C8 /* CGRect + Centering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect + Centering.swift"; sourceTree = "<group>"; };
 		424C2616205C3EF2009C22C8 /* CircularAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularAvatar.swift; sourceTree = "<group>"; };
 		424C2618205C3F24009C22C8 /* PlusNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusNumberView.swift; sourceTree = "<group>"; };
-		424C261A205E4D3B009C22C8 /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
+		424C261A205E4D3B009C22C8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		424C261C205E4DB0009C22C8 /* PresenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenceView.swift; sourceTree = "<group>"; };
 		425DA86E205701F400ABA122 /* Attendee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attendee.swift; sourceTree = "<group>"; };
 		425DA8702057021800ABA122 /* EventTimingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTimingView.swift; sourceTree = "<group>"; };
@@ -74,6 +75,7 @@
 		42A943A7206A8C9500595E47 /* DateHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeaderView.swift; sourceTree = "<group>"; };
 		42CC68082063861400898FB2 /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
 		42CC680A2063A25700898FB2 /* MonthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthViewController.swift; sourceTree = "<group>"; };
+		42EF7552206CB5ED00CC08D5 /* FeedbackVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,11 +120,12 @@
 				421C3391206A94280038B083 /* EmptyEventsTableViewCell.swift */,
 				421C3393206B97D10038B083 /* DayCell.swift */,
 				421C3395206B980A0038B083 /* MonthTitleView.swift */,
+				42EF7552206CB5ED00CC08D5 /* FeedbackVC.swift */,
 				421C3389206A8D090038B083 /* LocationView.swift */,
 				42CC68082063861400898FB2 /* DateCollectionViewCell.swift */,
 				42CC680A2063A25700898FB2 /* MonthViewController.swift */,
 				424C261C205E4DB0009C22C8 /* PresenceView.swift */,
-				424C261A205E4D3B009C22C8 /* MyViewController.swift */,
+				424C261A205E4D3B009C22C8 /* ViewController.swift */,
 				421C338B206A8E180038B083 /* EventCell.swift */,
 				421C338D206A8E2D0038B083 /* EventDetailsView.swift */,
 				421C338F206A8E3C0038B083 /* DotView.swift */,
@@ -263,6 +266,7 @@
 				421C338E206A8E2D0038B083 /* EventDetailsView.swift in Sources */,
 				424C2615205C3E5F009C22C8 /* CGRect + Centering.swift in Sources */,
 				421C338C206A8E180038B083 /* EventCell.swift in Sources */,
+				42EF7553206CB5ED00CC08D5 /* FeedbackVC.swift in Sources */,
 				42680C9E205554D700FD0D7C /* Constants.swift in Sources */,
 				42A943A8206A8C9500595E47 /* DateHeaderView.swift in Sources */,
 				428037A32054449B008E53A7 /* EventViewModel.swift in Sources */,
@@ -272,7 +276,7 @@
 				421C3392206A94280038B083 /* EmptyEventsTableViewCell.swift in Sources */,
 				425DA8712057021800ABA122 /* EventTimingView.swift in Sources */,
 				42680CA02055599000FD0D7C /* UIColor+Hex.swift in Sources */,
-				424C261B205E4D3B009C22C8 /* MyViewController.swift in Sources */,
+				424C261B205E4D3B009C22C8 /* ViewController.swift in Sources */,
 				425DA86F205701F400ABA122 /* Attendee.swift in Sources */,
 				421C3390206A8E3C0038B083 /* DotView.swift in Sources */,
 				4280378120544475008E53A7 /* AppDelegate.swift in Sources */,

@@ -60,6 +60,10 @@ enum Styles {
 			//TODO: BETTER NAMES
 		}
 
+		static let selectedCell = "1379D9"
+
+		static let contrastBackgroundColor = "F8F8F8"
+
 		enum Black {
 			static let defaultText = "1D1D1D"
 		}

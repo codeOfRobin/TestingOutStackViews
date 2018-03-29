@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MyViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
 	let avatars: [Attendee.Avatar] = [.image(#imageLiteral(resourceName: "AC")), .image(#imageLiteral(resourceName: "NM2")), .image(#imageLiteral(resourceName: "NM")), .image(#imageLiteral(resourceName: "JD"))]
 
@@ -17,12 +17,29 @@ class MyViewController : UIViewController, UITableViewDataSource, UITableViewDel
 	//TODO: Needs to be var for midnight date changing reasons
 	var today = Date()
 
-	let calendar = Calendar(identifier: .gregorian)
+	var calendar = Calendar(identifier: .gregorian)
 	//mutating a `DateFormatter` is just as expensive as creating one, because changing the calendar, timezone, locale, or format causes new stuff to be loaded
 	//the cost of `DateFormatter` comes from it loading up the formatting and region information from ICU
 	let headerDateFormatter = DateFormatter()
+	let collectionViewDateFormatter = DateFormatter()
 
 	var offsets = -100...100
+
+	//	#A week is always seven days
+	//	Currently true, but historically false. A couple of out-of-use calendars, like the Decimal calendar and the Egyptian calendar had weeks that were 7, 8, or even 10 days.
+	let numberOfColumns: CGFloat = 7
+
+	let generator = UIImpactFeedbackGenerator(style: .light)
+
+	var indexPathOfHighlightedCell: IndexPath {
+		didSet {
+			if oldValue != indexPathOfHighlightedCell {
+				collectionView.cellForItem(at: indexPathOfHighlightedCell)?.isHighlighted = true
+				collectionView.cellForItem(at: oldValue)?.isHighlighted = false
+				generator.impactOccurred()
+			}
+		}
+	}
 
 	let tableView = UITableView()
 	let collectionView: UICollectionView
@@ -30,6 +47,8 @@ class MyViewController : UIViewController, UITableViewDataSource, UITableViewDel
 
 	init() {
 		self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+		// not sure if this is the best way to go to the middle
+		self.indexPathOfHighlightedCell = IndexPath(row: 0, section: offsets.count/2)
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -41,7 +60,8 @@ class MyViewController : UIViewController, UITableViewDataSource, UITableViewDel
 		super.viewDidLoad()
 
 		headerDateFormatter.dateStyle = .medium
-
+		collectionViewDateFormatter.dateStyle = .short
+		calendar.locale = Locale.current
 
 		let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
 		let attendees = (avatars + avatars + avatars + avatars).enumerated().map{ Attendee(name: "Attendee \($0)", avatar: $1) }
@@ -137,8 +157,6 @@ class MyViewController : UIViewController, UITableViewDataSource, UITableViewDel
 			guard let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath) as? EventCell else {
 				return UITableViewCell()
 			}
-//			let attendees = (avatars + avatars + avatars + avatars).map{ Attendee(name: "Attendee \(indexPath.row)", avatar: $0) }
-//			cell.configure(with: EventViewModel(title: "title + \(indexPath.row)", timing: .timed(startingTime: "6:00 pmasdjfhbsjdfhb", duration: "2h"), eventHighlightColor: .orange, attendees: attendees, location: "location \(indexPath.row)"))
 			cell.configure(with: events[indexPath.row])
 			return cell
 		} else {
@@ -163,12 +181,42 @@ class MyViewController : UIViewController, UITableViewDataSource, UITableViewDel
 		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? DayCell else {
 			return UICollectionViewCell()
 		}
-		cell.configure(with: indexPath.row % 30, month: "Mar")
+		if let date = dateFrom(offset: indexPath.row) {
+			let day = calendar.component(.day, from: date)
+			let month = calendar.component(.month, from: date)
+			let monthName = calendar.shortMonthSymbols[month - 1]
+			cell.configure(with: day, month: monthName, isOdd: (month % 2 == 0))
+		}
 		return cell
 	}
 
+	func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+		if indexPathOfHighlightedCell == indexPath {
+			cell.isHighlighted = true
+		}
+	}
+
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+		//should
+
+		if scrollView == tableView,
+			let firstIndexPath = tableView.indexPathsForVisibleRows?.first,
+			self.indexPathOfHighlightedCell != firstIndexPath {
+			let collectionViewIndexPath = IndexPath.init(row: firstIndexPath.section, section: 0)
+			collectionView.scrollToItem(at: collectionViewIndexPath, at: .bottom, animated: true)
+			self.indexPathOfHighlightedCell = collectionViewIndexPath
+		}
+	}
+
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		self.indexPathOfHighlightedCell = indexPath
+		tableView.scrollToRow(at: IndexPath.init(row: 0, section: indexPath.row), at: .top, animated: true)
+	}
+
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		return CGSize(width: Int(collectionView.frame.width/7), height: Int(collectionView.frame.width/7))
+		let size = CGSize(width: (collectionView.frame.width/numberOfColumns) - 0.5, height: (collectionView.frame.width/numberOfColumns) - 0.5)
+		return size
 	}
 
 }
@@ -190,3 +238,4 @@ extension UIView {
 		self.rightAnchor.constraint(equalTo: otherView.rightAnchor, constant: -insets.right).isActive = true
 	}
 }
+

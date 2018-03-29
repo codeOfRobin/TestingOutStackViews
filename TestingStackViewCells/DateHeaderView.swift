@@ -19,6 +19,8 @@ class DateHeaderView: UITableViewHeaderFooterView {
 		self.addSubview(titleLabel)
 		titleLabel.translatesAutoresizingMaskIntoConstraints = false
 		titleLabel.alignEdges(to: self, insets: titleInsets)
+
+		self.backgroundView?.backgroundColor = Styles.Colors.contrastBackgroundColor.color
 	}
 
 	func configure(title: String) {

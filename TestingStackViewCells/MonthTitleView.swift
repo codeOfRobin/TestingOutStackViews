@@ -26,7 +26,7 @@ class MonthTitleView : UICollectionReusableView {
 
 class MonthFlowLayout: UICollectionViewFlowLayout {
 	private let titleKind = "title"
-	private let titleHeight : CGFloat = 50
+	private let titleHeight : CGFloat = 20
 	private var titleRect : CGRect {
 		return CGRect(x: 10, y: 0, width: 200, height: self.titleHeight)
 	}
@@ -49,7 +49,8 @@ class MonthFlowLayout: UICollectionViewFlowLayout {
 			if elementKind == self.titleKind {
 				let atts = UICollectionViewLayoutAttributes(
 					forDecorationViewOfKind:self.titleKind, with:indexPath)
-				atts.frame = CGRect.init(x: 10, y: 10 * indexPath.row, width: 200, height: 50)
+				atts.frame = CGRect.init(x: 10, y: 10 * indexPath.row, width: 200, height: 20)
+				atts.alpha = 0.0
 				return atts
 			}
 			return nil
