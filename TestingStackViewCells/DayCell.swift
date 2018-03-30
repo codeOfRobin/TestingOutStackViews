@@ -84,7 +84,7 @@ class DayCell: UICollectionViewCell {
 		} else {
 			self.monthLabel.isHidden = true
 		}
-		self.dayLabel.text = "\(day)"
+		self.dayLabel.attributedText = NSAttributedString(string: "\(day)", attributes: Styles.Text.MonthTextStyle)
 
 	}
 }

@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
 	let avatars: [Attendee.Avatar] = [.image(#imageLiteral(resourceName: "AC")), .image(#imageLiteral(resourceName: "NM2")), .image(#imageLiteral(resourceName: "NM")), .image(#imageLiteral(resourceName: "JD"))]
@@ -44,6 +45,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	let tableView = UITableView()
 	let collectionView: UICollectionView
 	let layout = MonthFlowLayout()
+//	let layout = UICollectionViewFlowLayout()
+
+	enum ExpandedView {
+		case agenda
+		case calendar
+	}
+
+	var expandedState: ExpandedView = .agenda {
+		didSet {
+		}
+	}
 
 	init() {
 		self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -93,19 +105,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 		view.addSubview(tableView)
 		view.addSubview(collectionView)
 
+		layout.minimumInteritemSpacing = 0.0
+		layout.minimumLineSpacing = 0.0
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-
 	}
 
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 
 		let width = view.bounds.width - view.safeAreaInsets.left - view.safeAreaInsets.right
-		collectionView.frame = CGRect(x: view.safeAreaInsets.left, y: view.safeAreaInsets.top, width: width, height: width)
-		tableView.frame = CGRect(x: collectionView.frame.minX, y: collectionView.frame.maxY, width: width, height: view.bounds.height - view.safeAreaInsets.top - view.safeAreaInsets.bottom - width)
+		collectionView.frame = CGRect(x: view.safeAreaInsets.left, y: view.safeAreaInsets.top, width: width, height: width/7*5)
+		tableView.frame = CGRect(x: collectionView.frame.minX, y: collectionView.frame.maxY, width: width, height: view.bounds.height - view.safeAreaInsets.top - view.safeAreaInsets.bottom - collectionView.frame.height)
 	}
 
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -186,6 +199,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 			let month = calendar.component(.month, from: date)
 			let monthName = calendar.shortMonthSymbols[month - 1]
 			cell.configure(with: day, month: monthName, isOdd: (month % 2 == 0))
+//			cell.addExternalBorder(borderWidth: 1.0, borderColor: (month % 2 == 0) ? .white: Styles.Colors.contrastBackgroundColor.color)
 		}
 		return cell
 	}
@@ -215,8 +229,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	}
 
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		let size = CGSize(width: (collectionView.frame.width/numberOfColumns) - 0.5, height: (collectionView.frame.width/numberOfColumns) - 0.5)
-		return size
+		if indexPath.row % 7 == 0 {
+			let leftOverWidth =  collectionView.bounds.width - floor(collectionView.frame.width/numberOfColumns) * 6
+			let size = CGSize(width: leftOverWidth, height: floor(collectionView.frame.width/numberOfColumns))
+			return size
+		} else {
+			let size = CGSize(width: floor(collectionView.frame.width/numberOfColumns), height: floor(collectionView.frame.width/numberOfColumns))
+			return size
+		}
 	}
 
 }
@@ -238,4 +258,3 @@ extension UIView {
 		self.rightAnchor.constraint(equalTo: otherView.rightAnchor, constant: -insets.right).isActive = true
 	}
 }
-

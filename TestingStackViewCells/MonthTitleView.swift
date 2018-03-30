@@ -33,8 +33,6 @@ class MonthFlowLayout: UICollectionViewFlowLayout {
 
 	override init() {
 		super.init()
-		self.minimumInteritemSpacing = 0.5
-		self.minimumLineSpacing = 0.5
 		self.sectionInset = .zero
 		self.register(MonthTitleView.self, forDecorationViewOfKind:self.titleKind)
 	}

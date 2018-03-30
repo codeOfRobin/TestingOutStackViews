@@ -49,6 +49,7 @@ enum Styles {
 		static let PlusNumberStyle = style(from: .white, font: fontWithMonospacedNumbers(UIFont.preferredFont(forTextStyle: .headline)))
 		static let DateHeaderStyle = style(from: Colors.Gray.oslo.color, font: UIFont.preferredFont(forTextStyle: .callout))
 		static let EmptyEventsStyle = style(from: Colors.Gray.dark.color, font: UIFont.preferredFont(forTextStyle: .subheadline))
+		static let MonthTextStyle = style(from: Colors.Black.defaultText.color, font: fontWithMonospacedNumbers(UIFont.preferredFont(forTextStyle: .callout)))
 	}
 
 	enum Colors {
