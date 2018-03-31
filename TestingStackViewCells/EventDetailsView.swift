@@ -11,7 +11,7 @@ import UIKit
 
 class EventDetailsView: UIView {
 
-	let presenceView = PresenceView(frame: .zero)
+	let presenceView = AttendeesView(frame: .zero)
 	let stackView = UIStackView()
 	let titleLabel = UILabel()
 	let locationView = LocationView(frame: .zero)

@@ -35,8 +35,8 @@ class DayCell: UICollectionViewCell {
 	override var isHighlighted: Bool {
 		didSet {
 			highlightedBackgroundView.isHidden = !isHighlighted
-			self.dayLabel.textColor = isHighlighted ? .white : .black
-			self.monthLabel.textColor = isHighlighted ? .white : .black
+			self.dayLabel.textColor = isHighlighted ? .white : Styles.Colors.Gray.monthText.color
+			self.monthLabel.textColor = isHighlighted ? .white : Styles.Colors.Gray.monthText.color
 		}
 	}
 
@@ -69,8 +69,8 @@ class DayCell: UICollectionViewCell {
 
 	override func layoutSubviews() {
 		super.layoutSubviews()
-		self.highlightedBackgroundView.frame = self.bounds
-		self.highlightedBackgroundView.layer.cornerRadius = max(self.frame.width/2, self.frame.height/2)
+		self.highlightedBackgroundView.frame = self.bounds.insetBy(dx: 4, dy: 4)
+		self.highlightedBackgroundView.layer.cornerRadius = max((self.frame.width - 8)/2, (self.frame.height - 8)/2)
 	}
 
 
@@ -84,7 +84,7 @@ class DayCell: UICollectionViewCell {
 		self.backgroundColor = isOdd ? .white : Styles.Colors.contrastBackgroundColor.color
 
 		if day == 1 {
-			self.monthLabel.text = month
+			self.monthLabel.attributedText = NSAttributedString(string: month ?? "", attributes: Styles.Text.MonthTextStyle)
 			self.monthLabel.isHidden = false
 		} else {
 			self.monthLabel.isHidden = true

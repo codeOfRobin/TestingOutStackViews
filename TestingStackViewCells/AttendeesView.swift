@@ -1,5 +1,5 @@
 //
-//  PresenceView.swift
+//  AttendeesView.swift
 //  TestingStackViewCells
 //
 //  Created by Robin Malhotra on 18/03/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PresenceView: UIView {
+class AttendeesView: UIView {
 	private var circles: [CircularAvatar] = []
 	let margin: CGFloat = 8
 

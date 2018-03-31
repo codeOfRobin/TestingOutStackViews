@@ -11,9 +11,9 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
-	let avatars: [Attendee.Avatar] = [.image(#imageLiteral(resourceName: "AC")), .image(#imageLiteral(resourceName: "NM2")), .image(#imageLiteral(resourceName: "NM")), .image(#imageLiteral(resourceName: "JD"))]
+	let eventDataProvider: EventDataProvider
 
-	var staticEventsDataSet: [Date: [EventViewModel]] = [:]
+	var events: [Day: [EventViewModel]] = [:]
 	//TODO: Needs to be var for midnight date changing reasons
 	var today = Date()
 
@@ -53,10 +53,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
 	var expandedState: ExpandedView = .calendar
 
-	init() {
+	init(dataProvider: EventDataProvider) {
 		self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
 		// not sure if this is the best way to go to the middle
 		self.indexPathOfHighlightedCell = IndexPath(row: 0, section: offsets.count/2)
+
+		self.eventDataProvider = dataProvider
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -67,20 +69,27 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		let firstDate = calendar.date(byAdding: .day, value: offsets.first ?? 0, to: today)
+		let lastDate = calendar.date(byAdding: .day, value: offsets.last ?? 0, to: today)
+		eventDataProvider.loadEvents(from: firstDate ?? Date(), to: lastDate ?? Date()) { [weak self] (results) in
+			guard let strongSelf = self else {
+				return
+			}
+			strongSelf.events = results.reduce([:], { (dict, arg) in
+				let (date, events) = arg
+				var copy = dict
+				if let day = Day(from: date, calendar: strongSelf.calendar) {
+					copy[day] = events
+				}
+				return copy
+			})
+			let sectionsToReload = 0..<(strongSelf.offsets.count)
+			strongSelf.tableView.reloadSections(IndexSet(integersIn: sectionsToReload), with: .fade)
+		}
+
 		headerDateFormatter.dateStyle = .medium
 		collectionViewDateFormatter.dateStyle = .short
 		calendar.locale = Locale.current
-
-		let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
-		let attendees = (avatars + avatars + avatars + avatars).enumerated().map{ Attendee(name: "Attendee \($0)", avatar: $1) }
-		staticEventsDataSet[today] = [
-			EventViewModel(title: "Chaitra Sukhaldi", timing: .allDay, eventHighlightColor: .orange, attendees: [], location: nil),
-			EventViewModel(title: "Spring Team Social", timing: .timed(startingTime: "2:00 PM", duration: "30m"), eventHighlightColor: .green, attendees: attendees, location: "Kayako Gurgaon Alpha")
-		]
-
-		staticEventsDataSet[tomorrow] = [
-			EventViewModel(title: "Treat friends(esp AC and JDP) to 🌮", timing: .allDay, eventHighlightColor: .orange, attendees: [], location: nil)
-		]
 
 		tableView.dataSource = self
 		tableView.register(EventCell.self, forCellReuseIdentifier: "eventCell")
@@ -153,7 +162,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
 	func eventsFromDataset(at index: Int) -> [EventViewModel] {
 		if let date = dateFrom(offset: index),
-			let events = staticEventsDataSet[date] {
+			let day = Day(from: calendar.dateComponents([.day, .month, .year, .era], from: date)),
+			let events = events[day] {
 			return events
 		} else {
 			return []
@@ -225,7 +235,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 			self.indexPathOfHighlightedCell != firstIndexPath {
 			let collectionViewIndexPath = IndexPath.init(row: firstIndexPath.section, section: 0)
 			collectionView.scrollToItem(at: collectionViewIndexPath, at: .bottom, animated: true)
-			print(collectionViewIndexPath)
 			self.indexPathOfHighlightedCell = collectionViewIndexPath
 		}
 	}

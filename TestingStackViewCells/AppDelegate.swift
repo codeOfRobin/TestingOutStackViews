@@ -19,7 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
 		window = UIWindow(frame: UIScreen.main.bounds)
 //		let homeViewController = MonthViewController()
-		let homeViewController = ViewController()
+
+		let calendar = Calendar.init(identifier: .gregorian)
+		let eventDataProvider = StaticEventsDataProvider(calendar: calendar)
+		let homeViewController = ViewController(dataProvider: eventDataProvider)
 
 
 		let nav = UINavigationController.init(rootViewController: homeViewController)
