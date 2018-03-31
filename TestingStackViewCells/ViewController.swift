@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
 	let avatars: [Attendee.Avatar] = [.image(#imageLiteral(resourceName: "AC")), .image(#imageLiteral(resourceName: "NM2")), .image(#imageLiteral(resourceName: "NM")), .image(#imageLiteral(resourceName: "JD"))]
@@ -52,10 +51,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 		case calendar
 	}
 
-	var expandedState: ExpandedView = .agenda {
-		didSet {
-		}
-	}
+	var expandedState: ExpandedView = .calendar
 
 	init() {
 		self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -117,7 +113,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 		super.viewDidLayoutSubviews()
 
 		let width = view.bounds.width - view.safeAreaInsets.left - view.safeAreaInsets.right
-		collectionView.frame = CGRect(x: view.safeAreaInsets.left, y: view.safeAreaInsets.top, width: width, height: width/7*5)
+
+		let numberOfRowsToShow: CGFloat = {
+			switch expandedState {
+			case .agenda:
+				return 2
+			case .calendar:
+				return 5
+			}
+		}()
+
+		collectionView.frame = CGRect(x: view.safeAreaInsets.left, y: view.safeAreaInsets.top, width: width, height: width / numberOfColumns * numberOfRowsToShow)
 		tableView.frame = CGRect(x: collectionView.frame.minX, y: collectionView.frame.maxY, width: width, height: view.bounds.height - view.safeAreaInsets.top - view.safeAreaInsets.bottom - collectionView.frame.height)
 	}
 
@@ -219,6 +225,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 			self.indexPathOfHighlightedCell != firstIndexPath {
 			let collectionViewIndexPath = IndexPath.init(row: firstIndexPath.section, section: 0)
 			collectionView.scrollToItem(at: collectionViewIndexPath, at: .bottom, animated: true)
+			print(collectionViewIndexPath)
 			self.indexPathOfHighlightedCell = collectionViewIndexPath
 		}
 	}
@@ -226,6 +233,27 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		self.indexPathOfHighlightedCell = indexPath
 		tableView.scrollToRow(at: IndexPath.init(row: 0, section: indexPath.row), at: .top, animated: true)
+	}
+
+	func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+		let oldState = self.expandedState
+		if scrollView == collectionView {
+			self.expandedState = .calendar
+		} else if scrollView == tableView {
+			self.expandedState = .agenda
+		}
+
+		guard oldState != expandedState else {
+			return
+		}
+		self.view.setNeedsLayout()
+
+		// https://developer.apple.com/documentation/uikit/uiview
+		// Use of these methods is discouraged. Use the UIViewPropertyAnimator class to perform animations instead.
+		let animator = UIViewPropertyAnimator(duration: 0.25, curve: .easeInOut) {
+			self.view.layoutIfNeeded()
+		}
+		animator.startAnimation()
 	}
 
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

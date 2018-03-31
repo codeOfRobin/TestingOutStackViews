@@ -73,6 +73,11 @@ class DayCell: UICollectionViewCell {
 		self.highlightedBackgroundView.layer.cornerRadius = max(self.frame.width/2, self.frame.height/2)
 	}
 
+
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		self.isHighlighted = false
+	}
 	// still confused what this should look like 😕. Should this accept DateComponents? Should month not be optional? SHould the logic for not showing the month label not be inside the cell? It def shouldn't have a Date
 	func configure(with day: Int, month: String?, isOdd: Bool) {
 

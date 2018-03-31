@@ -21,8 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 //		let homeViewController = MonthViewController()
 		let homeViewController = ViewController()
 
+
+		let nav = UINavigationController.init(rootViewController: homeViewController)
 		homeViewController.view.backgroundColor = .white
-		window?.rootViewController = homeViewController
+		window?.rootViewController = nav
 		window?.makeKeyAndVisible()
 		return true
 	}
