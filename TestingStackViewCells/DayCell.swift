@@ -45,7 +45,7 @@ class DayCell: UICollectionViewCell {
 
 		contentView.addSubview(stackView)
 		contentView.insertSubview(highlightedBackgroundView, belowSubview: stackView)
-		stackView.alignEdges(to: contentView)
+		stackView.alignEdges(to: contentView, insets: UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4))
 
 		stackView.axis = .vertical
 
@@ -76,7 +76,7 @@ class DayCell: UICollectionViewCell {
 
 	override func prepareForReuse() {
 		super.prepareForReuse()
-		self.isHighlighted = false
+		highlightedBackgroundView.isHidden = true
 	}
 	// still confused what this should look like 😕. Should this accept DateComponents? Should month not be optional? SHould the logic for not showing the month label not be inside the cell? It def shouldn't have a Date
 	func configure(with day: Int, month: String?, isOdd: Bool) {

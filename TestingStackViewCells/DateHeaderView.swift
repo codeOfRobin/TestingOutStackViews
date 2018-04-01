@@ -19,12 +19,18 @@ class DateHeaderView: UITableViewHeaderFooterView {
 		self.addSubview(titleLabel)
 		titleLabel.translatesAutoresizingMaskIntoConstraints = false
 		titleLabel.alignEdges(to: self, insets: titleInsets)
-
-		self.backgroundView?.backgroundColor = Styles.Colors.contrastBackgroundColor.color
 	}
 
-	func configure(title: String) {
-		titleLabel.attributedText = NSAttributedString(string: title, attributes: Styles.Text.DateHeaderStyle)
+	func configure(title: String, shouldHighlight: Bool) {
+		// https://stackoverflow.com/questions/15604900/uitableviewheaderfooterview-unable-to-change-background-color
+		self.backgroundView = UIView(frame: self.bounds)
+		if shouldHighlight {
+			titleLabel.attributedText = NSAttributedString(string: title, attributes: Styles.Text.HighlightedDateHeaderStyle)
+			self.backgroundView?.backgroundColor = Styles.Colors.Today.highlightBackgroundColor.color
+		} else {
+			titleLabel.attributedText = NSAttributedString(string: title, attributes: Styles.Text.DateHeaderStyle)
+			self.backgroundView?.backgroundColor = Styles.Colors.contrastBackgroundColor.color
+		}
 	}
 
 	required init?(coder aDecoder: NSCoder) {

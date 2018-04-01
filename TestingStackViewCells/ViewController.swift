@@ -51,7 +51,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 		case calendar
 	}
 
-	var expandedState: ExpandedView = .calendar
+	var expandedState: ExpandedView = .agenda
 
 	init(dataProvider: EventDataProvider) {
 		self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -143,7 +143,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 		}
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateStyle = .medium
-		header.configure(title: headerDateFormatter.string(from: date))
+		if calendar.isDate(date, equalTo: today, toGranularity: .day) {
+			print("asdkfjasdfjk")
+		}
+		header.configure(title: headerDateFormatter.string(from: date), shouldHighlight: calendar.isDate(date, equalTo: today, toGranularity: .day))
 		return header
 	}
 

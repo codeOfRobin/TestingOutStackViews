@@ -41,7 +41,7 @@ class EventDetailsView: UIView {
 		titleLabel.attributedText = NSAttributedString(string: eventTitle, attributes: Styles.Text.EventTitleStyle)
 		if let locationString = eventLocation {
 			locationView.isHidden = false
-			locationView.configure(locationName: locationString + locationString + locationString)
+			locationView.configure(locationName: locationString)
 		} else {
 			locationView.isHidden = true
 		}

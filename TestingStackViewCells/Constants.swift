@@ -48,6 +48,7 @@ enum Styles {
 		static let EventTitleStyle = style(from: .black, font: UIFont.preferredFont(forTextStyle: .subheadline))
 		static let PlusNumberStyle = style(from: .white, font: fontWithMonospacedNumbers(UIFont.preferredFont(forTextStyle: .headline)))
 		static let DateHeaderStyle = style(from: Colors.Gray.oslo.color, font: UIFont.preferredFont(forTextStyle: .callout))
+		static let HighlightedDateHeaderStyle = style(from: Colors.Today.textColor.color, font: UIFont.preferredFont(forTextStyle: .callout))
 		static let EmptyEventsStyle = style(from: Colors.Gray.dark.color, font: UIFont.preferredFont(forTextStyle: .subheadline))
 		static let MonthTextStyle = style(from: Colors.Gray.monthText.color, font: fontWithMonospacedNumbers(UIFont.preferredFont(forTextStyle: .callout)))
 	}
@@ -65,6 +66,11 @@ enum Styles {
 		static let selectedCell = "1379D9"
 
 		static let contrastBackgroundColor = "F8F8F8"
+
+		enum Today {
+			static let highlightBackgroundColor = "F5FAFC"
+			static let textColor = "1E7CD2"
+		}
 
 		enum Black {
 			static let defaultText = "1D1D1D"
