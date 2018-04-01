@@ -13,25 +13,15 @@ class DateHeaderView: UITableViewHeaderFooterView {
 
 	let titleInsets = UIEdgeInsets(top: 6, left: 16, bottom: 6, right: 16)
 
+	let stackView = UIStackView()
+
 	override init(reuseIdentifier: String?) {
 		super.init(reuseIdentifier: reuseIdentifier)
 		titleLabel.numberOfLines = 0
-		self.addSubview(titleLabel)
-		titleLabel.translatesAutoresizingMaskIntoConstraints = false
-	}
-
-	override func layoutSubviews() {
-		super.layoutSubviews()
-		titleLabel.frame = CGRect.init(x: titleInsets.left, y: titleInsets.top, width: self.frame.width - titleInsets.left - titleInsets.right, height: self.frame.height - titleInsets.top - titleInsets.bottom)
-	}
-
-	override var intrinsicContentSize: CGSize {
-		return sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
-	}
-
-	override func sizeThatFits(_ size: CGSize) -> CGSize {
-		let fittingSize = titleLabel.sizeThatFits(_:size)
-		return CGSize(width: fittingSize.width + titleInsets.right + titleInsets.left, height: fittingSize.height + titleInsets.top + titleInsets.bottom)
+		self.addSubview(stackView)
+		stackView.addArrangedSubview(titleLabel)
+		stackView.translatesAutoresizingMaskIntoConstraints = false
+		stackView.alignEdges(to: self, insets: titleInsets)
 	}
 
 	func configure(title: String, shouldHighlight: Bool) {
