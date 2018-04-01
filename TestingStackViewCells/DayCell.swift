@@ -48,8 +48,13 @@ class DayCell: UICollectionViewCell {
 		stackView.alignEdges(to: contentView, insets: UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4))
 
 		stackView.axis = .vertical
+		stackView.distribution = .fillEqually
 
 		stackView.translatesAutoresizingMaskIntoConstraints = false
+
+		monthLabel.translatesAutoresizingMaskIntoConstraints = false
+		dayLabel.translatesAutoresizingMaskIntoConstraints = false
+
 		stackView.backgroundColor = .clear
 
 		stackView.addArrangedSubview(monthLabel)

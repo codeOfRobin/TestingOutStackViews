@@ -18,7 +18,20 @@ class DateHeaderView: UITableViewHeaderFooterView {
 		titleLabel.numberOfLines = 0
 		self.addSubview(titleLabel)
 		titleLabel.translatesAutoresizingMaskIntoConstraints = false
-		titleLabel.alignEdges(to: self, insets: titleInsets)
+	}
+
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		titleLabel.frame = CGRect.init(x: titleInsets.left, y: titleInsets.top, width: self.frame.width - titleInsets.left - titleInsets.right, height: self.frame.height - titleInsets.top - titleInsets.bottom)
+	}
+
+	override var intrinsicContentSize: CGSize {
+		return sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
+	}
+
+	override func sizeThatFits(_ size: CGSize) -> CGSize {
+		let fittingSize = titleLabel.sizeThatFits(_:size)
+		return CGSize(width: fittingSize.width + titleInsets.right + titleInsets.left, height: fittingSize.height + titleInsets.top + titleInsets.bottom)
 	}
 
 	func configure(title: String, shouldHighlight: Bool) {
@@ -31,6 +44,7 @@ class DateHeaderView: UITableViewHeaderFooterView {
 			titleLabel.attributedText = NSAttributedString(string: title, attributes: Styles.Text.DateHeaderStyle)
 			self.backgroundView?.backgroundColor = Styles.Colors.contrastBackgroundColor.color
 		}
+		self.setNeedsLayout()
 	}
 
 	required init?(coder aDecoder: NSCoder) {
