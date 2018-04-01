@@ -215,7 +215,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 			let month = calendar.component(.month, from: date)
 			let monthName = calendar.shortMonthSymbols[month - 1]
 			cell.configure(with: day, month: monthName, isOdd: (month % 2 == 0))
-//			cell.addExternalBorder(borderWidth: 1.0, borderColor: (month % 2 == 0) ? .white: Styles.Colors.contrastBackgroundColor.color)
 		}
 		return cell
 	}
@@ -227,8 +226,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	}
 
 	func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
-		//should
 
 		if scrollView == tableView,
 			let firstIndexPath = tableView.indexPathsForVisibleRows?.first,
@@ -278,20 +275,4 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
 }
 
-extension Collection {
-	func element(at offset: IndexDistance) -> Element? {
-		let optionalIndex = self.index(self.startIndex, offsetBy: offset, limitedBy: endIndex)
-		guard let index = optionalIndex else { return nil }
-		return self[index]
-	}
-}
 
-
-extension UIView {
-	func alignEdges(to otherView: UIView, insets: UIEdgeInsets = .zero) {
-		self.topAnchor.constraint(equalTo: otherView.topAnchor, constant: insets.top).isActive = true
-		self.bottomAnchor.constraint(equalTo: otherView.bottomAnchor, constant: -insets.bottom).isActive = true
-		self.leftAnchor.constraint(equalTo: otherView.leftAnchor, constant: insets.left).isActive = true
-		self.rightAnchor.constraint(equalTo: otherView.rightAnchor, constant: -insets.right).isActive = true
-	}
-}

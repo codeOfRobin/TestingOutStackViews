@@ -11,7 +11,7 @@ import Foundation
 struct Day: Equatable, Hashable {
 
 	// immutability!
-	private let dateComponents: DateComponents
+	let dateComponents: DateComponents
 
 	var day: Int? {
 		return dateComponents.day

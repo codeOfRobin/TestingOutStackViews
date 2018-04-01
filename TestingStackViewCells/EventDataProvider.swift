@@ -1,5 +1,5 @@
 //
-//  Event.swift
+//  EventDataProvider.swift
 //  TestingStackViewCells
 //
 //  Created by Robin Malhotra on 31/03/18.
