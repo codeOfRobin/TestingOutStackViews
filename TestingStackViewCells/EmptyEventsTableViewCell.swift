@@ -14,15 +14,19 @@ class EmptyEventsTableViewCell: UITableViewCell {
 	//TODO: should this be in the cell or in Styles.swift
 	let insets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 
+	let stackView = UIStackView()
+
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-		self.contentView.addSubview(label)
+		self.contentView.addSubview(stackView)
+
+		stackView.addArrangedSubview(label)
 
 		//TODO: good place to add constraints?
 		label.numberOfLines = 0
-		label.translatesAutoresizingMaskIntoConstraints = false
-		label.alignEdges(to: self.contentView, insets: insets)
+		stackView.translatesAutoresizingMaskIntoConstraints = false
+		stackView.alignEdges(to: self.contentView, insets: insets)
 	}
 
 	required init?(coder aDecoder: NSCoder) {

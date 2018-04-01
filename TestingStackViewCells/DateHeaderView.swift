@@ -18,10 +18,10 @@ class DateHeaderView: UITableViewHeaderFooterView {
 	override init(reuseIdentifier: String?) {
 		super.init(reuseIdentifier: reuseIdentifier)
 		titleLabel.numberOfLines = 0
-		self.addSubview(stackView)
-		stackView.addArrangedSubview(titleLabel)
 		stackView.translatesAutoresizingMaskIntoConstraints = false
-		stackView.alignEdges(to: self, insets: titleInsets)
+		self.contentView.addSubview(stackView)
+		stackView.addArrangedSubview(titleLabel)
+		stackView.alignEdges(to: self.contentView, insets: titleInsets)
 	}
 
 	func configure(title: String, shouldHighlight: Bool) {
@@ -34,7 +34,6 @@ class DateHeaderView: UITableViewHeaderFooterView {
 			titleLabel.attributedText = NSAttributedString(string: title, attributes: Styles.Text.DateHeaderStyle)
 			self.backgroundView?.backgroundColor = Styles.Colors.contrastBackgroundColor.color
 		}
-		self.setNeedsLayout()
 	}
 
 	required init?(coder aDecoder: NSCoder) {

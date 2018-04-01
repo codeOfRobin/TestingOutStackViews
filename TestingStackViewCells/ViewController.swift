@@ -23,7 +23,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 	let headerDateFormatter = DateFormatter()
 	let collectionViewDateFormatter = DateFormatter()
 
-	var offsets = -1...1
+	var offsets = -1...(-1)
 
 	//	#A week is always seven days
 	//	Currently true, but historically false. A couple of out-of-use calendars, like the Decimal calendar and the Egyptian calendar had weeks that were 7, 8, or even 10 days.
