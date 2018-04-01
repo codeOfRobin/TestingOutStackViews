@@ -143,9 +143,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 		}
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateStyle = .medium
-		if calendar.isDate(date, equalTo: today, toGranularity: .day) {
-			print("asdkfjasdfjk")
-		}
 		header.configure(title: headerDateFormatter.string(from: date), shouldHighlight: calendar.isDate(date, equalTo: today, toGranularity: .day))
 		return header
 	}

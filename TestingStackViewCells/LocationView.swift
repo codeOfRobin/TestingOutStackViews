@@ -8,6 +8,31 @@
 
 import UIKit
 
+class LocationViewController: UIViewController {
+
+	let locationView = LocationView(frame: .zero)
+
+	init() {
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		self.view.addSubview(locationView)
+		locationView.configure(locationName: "sdajfksadjnfksajdnfksajdfnksadjfnksdjnfksdajfnksjdfaksdjfnksdnjfksajdfnkjasdnfksajdnfkasdjfnkasdjnfkjsdanfkjsadnfkjasdnfkjansdakjfnksldfagliyetwhio")
+	}
+
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		locationView.frame = locationView.intrinsicContentSize.centeredVertically(in: self.view.bounds)
+	}
+
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+}
+
 class LocationView: UIView {
 	let label = UILabel()
 	let image = UIImageView()
@@ -25,20 +50,25 @@ class LocationView: UIView {
 		image.translatesAutoresizingMaskIntoConstraints = false
 		label.numberOfLines = 1
 
-		NSLayoutConstraint.activate([
-			image.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-			label.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: margin),
-			label.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-			image.topAnchor.constraint(equalTo: self.topAnchor),
-			label.topAnchor.constraint(equalTo: self.topAnchor),
-			label.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-			image.heightAnchor.constraint(equalTo: label.heightAnchor),
-			image.widthAnchor.constraint(equalTo: image.heightAnchor)
-			])
-
-		image.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
-		image.setContentHuggingPriority(.defaultLow, for: .vertical)
 		image.contentMode = .scaleAspectFit
+	}
+
+	override func layoutSubviews() {
+		super.layoutSubviews()
+
+		var labelFrameWithMargin = CGRect.zero
+		(image.frame, labelFrameWithMargin) = self.bounds.divided(atDistance: self.frame.height, from: .minXEdge)
+		(_, label.frame) = labelFrameWithMargin.divided(atDistance: margin, from: .minXEdge)
+	}
+
+	override var intrinsicContentSize: CGSize {
+		return sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
+	}
+
+	override func sizeThatFits(_ size: CGSize) -> CGSize {
+		let labelSize = label.sizeThatFits(CGSize(width: size.width, height: size.height))
+		let imageEdge = labelSize.height
+		return CGSize(width: imageEdge + margin + labelSize.width, height: imageEdge)
 	}
 
 	required init?(coder aDecoder: NSCoder) {

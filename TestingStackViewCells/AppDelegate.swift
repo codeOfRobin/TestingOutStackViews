@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 		let eventDataProvider = StaticEventsDataProvider(calendar: calendar)
 		let homeViewController = ViewController(dataProvider: eventDataProvider)
 
+//		let homeViewController = LocationViewController()
 
 		let nav = UINavigationController.init(rootViewController: homeViewController)
 		homeViewController.view.backgroundColor = .white
