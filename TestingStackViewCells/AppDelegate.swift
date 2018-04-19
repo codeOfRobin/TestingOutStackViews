@@ -18,13 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 		// Override point for customization after application launch
 
 		window = UIWindow(frame: UIScreen.main.bounds)
-//		let homeViewController = MonthViewController()
 
 		let calendar = Calendar.init(identifier: .gregorian)
 		let eventDataProvider = StaticEventsDataProvider(calendar: calendar)
-		let homeViewController = ViewController(dataProvider: eventDataProvider)
-
-//		let homeViewController = LocationViewController()
+		let homeViewController = CalendarViewController(dataProvider: eventDataProvider)
 
 		let nav = UINavigationController.init(rootViewController: homeViewController)
 		homeViewController.view.backgroundColor = .white
